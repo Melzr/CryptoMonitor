@@ -1,0 +1,21 @@
+{
+  "name": "cryptomonitor.tdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "startDev": "nodemon",
+    "test": "mocha -r ts-node/register src/test/*.test.ts"
+  },
+  "author": "75.10",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.11.5",
+    "assert": "^2.0.0",
+    "mocha": "^10.1.0",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
+}
