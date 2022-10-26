@@ -27,7 +27,7 @@ export class Server {
     }
 
     routes() {  
-        this.app.use( this.paths.rules, RulesRouter );
+        this.app.use( this.paths.rules, RulesRouter() );
     }
 
     listen() {
