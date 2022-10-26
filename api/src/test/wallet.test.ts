@@ -102,7 +102,5 @@ describe('wallet', function () {
             Error
         );
         assert.deepEqual(wallet.getBalance(), 0);
-        
     });
-    
 })
