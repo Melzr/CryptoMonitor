@@ -6,6 +6,7 @@ export type ValueType
     | { type: 'VARIABLE'; name: string }
     | { type: 'WALLET'; symbol: string }
     | { type: 'CALL'; name: string; arguments: ValueType[] }
+    | { type: 'DATA'; symbol: string; from: number; until: number; default: ValueType[] }
 
 export class Value {
 
@@ -17,6 +18,8 @@ export class Value {
                 return VariableManager.Instance.getVariable(value.name);
             case 'WALLET':
                 return Wallet.Instance.getBalance(value.symbol);
+            case 'DATA':
+                return 0;
             case 'CALL':
                 return this.parseCall(value.name, value.arguments);
             default:

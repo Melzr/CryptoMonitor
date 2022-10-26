@@ -2,9 +2,9 @@ import { Value, ValueType } from "./value";
 import { VariableManager } from "./variableManager";
 import { Wallet } from "./wallet";
 
-type ActionType
+export type ActionType
     = { type: 'BUY_MARKET' | 'SELL_MARKET'; symbol:  string; amount: ValueType }
-    | { type: 'SET_VARIABLE'; name:  string; value: ValueType }
+    | { type: 'SET_VARIABLE'; name:  string; value: ValueType; symbol: string }
 
 
 export class Action {
