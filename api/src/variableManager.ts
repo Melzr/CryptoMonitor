@@ -12,7 +12,7 @@ export class VariableManager {
         this._variables[name] = value;
     }
 
-    public getVariable(name: string) {
+    public getVariable(name: string): number | string | boolean {
         return this._variables[name];
     }
 }

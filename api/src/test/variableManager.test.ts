@@ -7,7 +7,7 @@ describe('variableManager', function() {
         const variableManager = VariableManager.Instance;
         assert.notDeepEqual(variableManager, null);
     });
-
+    
     it('should be able to set a variable with a string', function(){
         const variableManager = VariableManager.Instance;
         variableManager.setVariable('myVar', 'myValue');
