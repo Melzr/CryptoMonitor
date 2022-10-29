@@ -4,7 +4,7 @@ import { Wallet } from "./wallet";
 
 export type ActionType
     = { type: 'BUY_MARKET' | 'SELL_MARKET'; symbol:  string; amount: ValueType }
-    | { type: 'SET_VARIABLE'; name:  string; value: ValueType; symbol: string }
+    | { type: 'SET_VARIABLE'; name:  string; value: ValueType}
 
 
 export class Action {
@@ -12,15 +12,17 @@ export class Action {
     static perform(action: ActionType) {
         switch (action.type) {
             case 'SET_VARIABLE':
-                VariableManager.Instance.setVariable(action.name, Value.parse(action.value));
+                let value = Value.parse(action.value);
+                if (Array.isArray(value)) {
+                    value = value[0];
+                }
+                VariableManager.Instance.setVariable(action.name, value);
                 break;
             case 'SELL_MARKET':
-                var value = Value.parseAsNumber(Value.parse(action.amount));
-                Wallet.Instance.sellAmount(action.symbol, value);
+                Wallet.Instance.sellAmount(action.symbol, Value.parseAsNumber(Value.parse(action.amount)));
                 break;
             case 'BUY_MARKET':
-                var value = Value.parseAsNumber(Value.parse(action.amount));
-                Wallet.Instance.buyAmount(action.symbol, value);
+                Wallet.Instance.buyAmount(action.symbol, Value.parseAsNumber(Value.parse(action.amount)));
                 break;
             default:
                 throw new Error('Invalid value type');

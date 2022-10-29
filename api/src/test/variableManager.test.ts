@@ -10,19 +10,19 @@ describe('variableManager', function() {
     
     it('should be able to set a variable with a string', function(){
         const variableManager = VariableManager.Instance;
-        variableManager.setVariable('myVar', 'myValue');
-        assert.deepEqual(variableManager.getVariable('myVar'), 'myValue');
+        variableManager.setVariable('String', 'TDD');
+        assert.deepEqual(variableManager.getVariable('String'), 'TDD');
     });
 
     it('should be able to set a variable with a number', function(){
         const variableManager = VariableManager.Instance;
-        variableManager.setVariable('myVar2', 213);
-        assert.deepEqual(variableManager.getVariable('myVar2'), 213);
+        variableManager.setVariable('BottomValue', 213);
+        assert.deepEqual(variableManager.getVariable('BottomValue'), 213);
     });
 
     it('should be able to set a variable with a boolean', function(){
         const variableManager = VariableManager.Instance;
-        variableManager.setVariable('myVar3', true);
-        assert.deepEqual(variableManager.getVariable('myVar3'), true);
+        variableManager.setVariable('buy', true);
+        assert.deepEqual(variableManager.getVariable('buy'), true);
     });
 })

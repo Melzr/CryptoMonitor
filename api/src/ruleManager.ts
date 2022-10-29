@@ -32,9 +32,10 @@ export class RuleManager {
             const actions = ruleObj.action;
             if (Value.parse(condition) === true) {
                 for(const action in actions) {
-                    if(actions[action].type !== 'SET_VARIABLE' && symbol === actions[action].symbol)
+                    let a = actions[action];
+                    if(a.type === 'SET_VARIABLE'){
                         Action.perform(actions[action]);
-                    if(actions[action].type === 'SET_VARIABLE'){
+                    } else if (symbol === a.symbol) {
                         Action.perform(actions[action]);
                     }
                 }

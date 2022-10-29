@@ -1,3 +1,4 @@
+import { DataManager, DataRegister } from "./dataManager";
 import { VariableManager } from "./variableManager";
 import { Wallet } from "./wallet";
 
@@ -10,7 +11,7 @@ export type ValueType
 
 export class Value {
 
-    static parse(value: ValueType): number | boolean | string {
+    static parse(value: ValueType): number | boolean | string | number[] {
         switch (value.type) {
             case 'CONSTANT':
                 return value.value;
@@ -19,7 +20,11 @@ export class Value {
             case 'WALLET':
                 return Wallet.Instance.getBalance(value.symbol);
             case 'DATA':
-                return 0;
+                let data = DataManager.Instance.getData(value.symbol, value.from, value.until);
+                if (data.length === 0) {
+                    return value.default.map(value => Value.parseAsNumber(Value.parse(value)));
+                }
+                return data;
             case 'CALL':
                 return this.parseCall(value.name, value.arguments);
             default:
@@ -27,14 +32,18 @@ export class Value {
         }
     }
 
-    static parseAsNumber(value: number | boolean | string): number {
+    static parseAsNumber(value: number | boolean | string | number[]): number {
         if (typeof value === 'number') {
             return value;
+        }
+        if (typeof value !== 'boolean' && typeof value !== 'string') {
+            return value[0];
         }
         return 0;
     }
 
     static parseCall(name: String, args: ValueType[]): number | boolean | string {
+        args = args.flat();
         switch (name) {
             case '==':
                 return args.every(arg => Value.parse(arg) === Value.parse(args[0]));
@@ -49,12 +58,32 @@ export class Value {
                 return args.every((arg, index) => index === 0 || Value.parse(args[index - 1]) < Value.parse(arg));
             case '<=':
                 return args.every((arg, index) => index === 0 || Value.parse(args[index - 1]) <= Value.parse(arg));
+            case 'NEGATE':
+                if (args.length !== 1) {
+                    throw new Error('Invalid number of arguments');
+                }
+                return Value.parseAsNumber(Value.parse(args[0])) * -1;
+            case '-':
+                if (args.length !== 2) {
+                    throw new Error('Invalid number of arguments');
+                }
+                return Value.parseAsNumber(Value.parse(args[0])) - Value.parseAsNumber(Value.parse(args[1]));
+            case '/':
+                if (args.length !== 2) {
+                    throw new Error('Invalid number of arguments');
+                }
+                return Value.parseAsNumber(Value.parse(args[0])) / Value.parseAsNumber(Value.parse(args[1]));
             case '+':
                 return args.reduce((acc, arg) => acc + Value.parseAsNumber(Value.parse(arg)), 0);
             case '*':
                 return args.reduce((acc, arg) => acc * Value.parseAsNumber(Value.parse(arg)), 1);
             case 'AND':
                 return args.every(arg => Value.parse(arg) === true);
+            case 'NOT':
+                if (args.length !== 1) {
+                    throw new Error('Invalid number of arguments');
+                }
+                return !Value.parse(args[0]);
             case 'OR':
                 return args.some(arg => Value.parse(arg));
             case 'MIN':
@@ -62,9 +91,9 @@ export class Value {
             case 'MAX':
                 return Math.max(...args.map(arg => Value.parseAsNumber(Value.parse(arg))));
             case 'FIRST':
-                return Value.parse(args[0]);
+                return Value.parseAsNumber(Value.parse(args[0]));
             case 'LAST':
-                return Value.parse(args[args.length - 1]);
+                return Value.parseAsNumber(Value.parse(args[args.length - 1]));
             case 'AVERAGE':
                 return args.reduce((acc, arg) => acc + Value.parseAsNumber(Value.parse(arg)), 0) / args.length;
             case 'STDDEV':

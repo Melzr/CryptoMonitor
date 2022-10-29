@@ -12,8 +12,7 @@ describe('action', function () {
             value: {
                 type: 'CONSTANT',
                 value: 12
-            },
-            symbol: ''
+            }
         });
         assert.deepEqual(VariableManager.Instance.getVariable('ValorMinimoTDD'), 12);
     });
@@ -25,8 +24,7 @@ describe('action', function () {
             value: {
                 type: 'CONSTANT',
                 value: true
-            },
-            symbol: ''
+            }
         });
         assert.deepEqual(VariableManager.Instance.getVariable('Booleano'), true);
     });
@@ -38,8 +36,7 @@ describe('action', function () {
             value: {
                 type: 'CONSTANT',
                 value: 'Hello world'
-            },
-            symbol: ''
+            }
         });     
         assert.deepEqual(VariableManager.Instance.getVariable('HelloWorld'), 'Hello world');
     });
@@ -118,8 +115,5 @@ describe('action', function () {
         );
         assert.deepEqual(Wallet.Instance.getBalance('TDD/DOGE'), 0);
     });
-    
-
-
 });
 
