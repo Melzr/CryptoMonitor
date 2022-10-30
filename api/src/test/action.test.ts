@@ -44,32 +44,32 @@ describe('action', function () {
     it('should be able to buy', function () {
         Action.perform({
             type: 'BUY_MARKET',
-            symbol: 'TDD/BTC',
+            symbol: 'BTC/USDT',
             amount: {
                 type: 'CONSTANT',
                 value: 12
             }
         });
-        assert.deepEqual(Wallet.Instance.getBalance('TDD/BTC'), 12);
+        assert.deepEqual(Wallet.Instance.getBalance('BTC'), 12);
     });
 
     it('should be able to sell', function () {
         Action.perform({
             type: 'SELL_MARKET',
-            symbol: 'TDD/BTC',
+            symbol: 'BTC/USDT',
             amount: {
                 type: 'CONSTANT',
                 value: 12
             }
         });
-        assert.deepEqual(Wallet.Instance.getBalance('TDD/BTC'), 0);
+        assert.deepEqual(Wallet.Instance.getBalance('BTC'), 0);
     }
     );
 
     it('should be able to buy and sell', function () {
         Action.perform({
             type: 'BUY_MARKET',
-            symbol: 'TDD/ADA',
+            symbol: 'ADA/USDT',
             amount: {
                 type: 'CONSTANT',
                 value: 12
@@ -77,13 +77,13 @@ describe('action', function () {
         });
         Action.perform({
             type: 'SELL_MARKET',
-            symbol: 'TDD/ADA',
+            symbol: 'ADA/USDT',
             amount: {
                 type: 'CONSTANT',
                 value: 12
             }
         });
-        assert.deepEqual(Wallet.Instance.getBalance('TDD/ADA'), 0);
+        assert.deepEqual(Wallet.Instance.getBalance('ADA'), 0);
     });
 
     it('should not be able to buy negative amount', function () {
@@ -105,7 +105,7 @@ describe('action', function () {
         assert.throws(
             () => Action.perform({
                 type: 'SELL_MARKET',
-                symbol: 'TDD/DOGE',
+                symbol: 'DOGE/USDT',
                 amount: {
                     type: 'CONSTANT',
                     value: -1
@@ -113,7 +113,7 @@ describe('action', function () {
             }),
             Error
         );
-        assert.deepEqual(Wallet.Instance.getBalance('TDD/DOGE'), 0);
+        assert.deepEqual(Wallet.Instance.getBalance('DOGE'), 0);
     });
 });
 

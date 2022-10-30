@@ -10,19 +10,17 @@ export class Wallet {
         return this._instance || (this._instance = new this());
     }
 
-    buyAmount(symbol: string, amount: number) {
+    public buyAmount(symbol: string, amount: number) {
         if (amount < 0) {
             throw new Error("Amount must be positive");
         }
-
         if (!this._balance.hasOwnProperty(symbol)) {
             this._balance[symbol] = 0;
         }
-        
         this._balance[symbol] += amount;
     }
 
-    sellAmount(symbol: string, amount: number) {
+    public sellAmount(symbol: string, amount: number) {
         if (amount < 0) {
             throw new Error("Amount must be positive");
         }
@@ -38,11 +36,20 @@ export class Wallet {
         this._balance[symbol] -= amount;
     }
 
-    getBalance(symbol: string): number {
+    public getBalance(symbol: string): number {
         if (!this._balance.hasOwnProperty(symbol)) {
             return 0;
         }
 
         return this._balance[symbol];
     }
+
+    public getTotalBalance(): { [key: string]: number } {
+        return this._balance;
+    }
+
+    reset() {
+        this._balance = {};
+    }
+
 }

@@ -19,10 +19,10 @@ export class Action {
                 VariableManager.Instance.setVariable(action.name, value);
                 break;
             case 'SELL_MARKET':
-                Wallet.Instance.sellAmount(action.symbol, Value.parseAsNumber(Value.parse(action.amount)));
+                Wallet.Instance.sellAmount(action.symbol.split('/')[0], Value.parseAsNumber(Value.parse(action.amount)));
                 break;
             case 'BUY_MARKET':
-                Wallet.Instance.buyAmount(action.symbol, Value.parseAsNumber(Value.parse(action.amount)));
+                Wallet.Instance.buyAmount(action.symbol.split('/')[0], Value.parseAsNumber(Value.parse(action.amount)));
                 break;
             default:
                 throw new Error('Invalid value type');

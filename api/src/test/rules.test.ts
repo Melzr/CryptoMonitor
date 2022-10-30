@@ -4,9 +4,13 @@ import { Wallet } from "../wallet";
 import { RuleManager } from "../ruleManager";
 
 describe('RuleManager', function () {
+    it('should be not null after initialize it', function(){
+        const ruleManager = RuleManager.Instance;
+        assert.notDeepEqual(ruleManager, null);
+    });
+
     it('should be able to set a rule', function () {
         RuleManager.Instance.setRule('Comprar 12 TDD/USDT siempre', {
-            name: 'Comprar 12 TDD/USDT siempre',
             condition: {
                 type: 'CONSTANT',
                 value: true
@@ -21,7 +25,6 @@ describe('RuleManager', function () {
             }]
         });
         assert.deepEqual(RuleManager.Instance.getRule('Comprar 12 TDD/USDT siempre'), {
-            name: 'Comprar 12 TDD/USDT siempre',
             condition: {
                 type: 'CONSTANT',
                 value: true
@@ -39,7 +42,6 @@ describe('RuleManager', function () {
 
     it('should be able to execute a rule', function () {
         RuleManager.Instance.setRule('Comprar 12 TDD/USDT siempre', {
-            name: 'Comprar 12 TDD/USDT siempre',
             condition: {
                 type: 'CONSTANT',
                 value: true
@@ -54,12 +56,11 @@ describe('RuleManager', function () {
             }]
         });
         RuleManager.Instance.executeRules('TDD/USDT');
-        assert.deepEqual(Wallet.Instance.getBalance('TDD/USDT'), 12);
+        assert.deepEqual(Wallet.Instance.getBalance('TDD'), 12);
     });
 
     it('shoul be able to execute a rule with a variable', function () {
         RuleManager.Instance.setRule('Vender si sube 15%', {
-            name: 'Vender si sube 15%',
             condition: {
                 type: 'CALL',
                 name: '>',

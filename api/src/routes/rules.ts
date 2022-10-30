@@ -1,5 +1,8 @@
 import { Router } from 'express';
 import RulesController from '../controllers/rules';
+import { body } from 'express-validator';
+import { validateRule } from '../middlewares/validateRule';
+import { validateFields } from '../middlewares/validateFields';
 
 const rulesRouter = () => {
     const router = Router();
@@ -7,9 +10,10 @@ const rulesRouter = () => {
     
     router.get('/', rulesController.getRules);
     
-    router.post('/', rulesController.addRule);
-
-    router.get('/:name', rulesController.getRuleByName);
+    router.post('/', [
+        body('rule').custom(validateRule),
+        validateFields
+    ], rulesController.addRule);
 
     router.delete('/:name', rulesController.deleteRule);
 

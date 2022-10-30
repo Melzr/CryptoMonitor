@@ -55,6 +55,8 @@ export class Value {
             case '>=':
                 return args.every((arg, index) => index === 0 || Value.parse(args[index - 1]) >= Value.parse(arg));
             case '<':
+                for (let i = 0; i < args.length - 1; i++) {
+                }
                 return args.every((arg, index) => index === 0 || Value.parse(args[index - 1]) < Value.parse(arg));
             case '<=':
                 return args.every((arg, index) => index === 0 || Value.parse(args[index - 1]) <= Value.parse(arg));
@@ -93,7 +95,7 @@ export class Value {
             case 'FIRST':
                 return Value.parseAsNumber(Value.parse(args[0]));
             case 'LAST':
-                return Value.parseAsNumber(Value.parse(args[args.length - 1]));
+                  return Value.parseAsNumber(Value.parse(args[args.length - 1]));
             case 'AVERAGE':
                 return args.reduce((acc, arg) => acc + Value.parseAsNumber(Value.parse(arg)), 0) / args.length;
             case 'STDDEV':

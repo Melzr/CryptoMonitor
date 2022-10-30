@@ -23,15 +23,16 @@ export class DataManager {
     public getData(symbol: string, from: number, until: number): number[] {
         let actualTime = Math.floor(new Date().getTime() / 1000);
         let data = this._data[symbol];
+
         return data.filter((item) => {
-            (item.time >= actualTime - from && item.time <= actualTime - until);
+            return (item.time >= (actualTime - from) && item.time <= (actualTime - until));
         }).map((item) => item.value);
     }
 
-    public getLastValue(name: string): DataRegister | null {
+    public getLastValue(name: string): number | null {
         if (!this._data[name]) {
             return null;
         }
-        return this._data[name][this._data[name].length - 1];
+        return this._data[name][this._data[name].length - 1].value;
     }
 }

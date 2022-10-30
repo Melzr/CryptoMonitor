@@ -1,8 +1,8 @@
+import { DataManager } from "./dataManager";
 import { Action, ActionType } from "./action";
 import { Value, ValueType } from "./value";
 
 interface Rule {
-    name: string;
     condition: ValueType;
     action: ActionType[];
 }
@@ -10,6 +10,7 @@ interface Rule {
 export class RuleManager {
     private static _instance: RuleManager;
     private _rules: { [key: string]: Rule } = {};
+    private _operable_values: { [key: string]: number } = {};
 
     private constructor() {}
 
@@ -25,7 +26,19 @@ export class RuleManager {
         return this._rules[name];
     }
 
+    public getRules() {
+        return this._rules;
+    }
+
+    public deleteRule(name: string) {
+        delete this._rules[name];
+    }
+
     public executeRules(symbol: string) {
+        let actualValue = DataManager.Instance.getLastValue(symbol);
+        if (this._operable_values[symbol] && actualValue && actualValue < this._operable_values[symbol]){
+            return;
+        }
         for (const nameRule in this._rules) {
             const ruleObj = this._rules[nameRule];
             const condition = ruleObj.condition;
@@ -43,4 +56,7 @@ export class RuleManager {
         }
     }
 
+    public setOperableValue(name: string, value: number) {
+        this._operable_values[name] = value;
+    }
 }
