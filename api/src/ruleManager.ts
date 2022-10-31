@@ -2,7 +2,7 @@ import { DataManager } from "./dataManager";
 import { Action, ActionType } from "./action";
 import { Value, ValueType } from "./value";
 
-interface Rule {
+export interface Rule {
     condition: ValueType;
     action: ActionType[];
 }

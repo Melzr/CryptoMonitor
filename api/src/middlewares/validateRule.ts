@@ -1,14 +1,22 @@
 import { Request, Response, NextFunction } from "express";
+import { schemas } from "../validation/schemas";
 
 export const validateRule = (req: Request, res: Response, next: NextFunction) => {
+    const { rule } = req['body'];
 
-    if (!req['body'].rule) {
+    if (!rule) {
         return res.status(400).json({
             msg: "rule is required",
         });
     }
 
-    // TODO: verify rule
+    const { error } = schemas.rule.validate(rule);
+
+    if (error) {
+        return res.status(400).json({
+            error: error.message,
+        });
+    }
 
     next();
 }

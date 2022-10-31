@@ -14,12 +14,42 @@ const walletController = () => {
         const { symbol } = req.params;
         const value = wallet.getBalance(symbol);
 
-        res.json({ symbol: value });
+        res.json({ [symbol]: value });
+    }
+
+    const buyAmount = async (req: Request, res: Response, next: NextFunction) => {
+        const { symbol, amount } = req.body;
+        try {
+            wallet.buyAmount(symbol, amount);
+        } catch (e) {
+            const error = e instanceof Error
+                ? e.message
+                : 'unkwown error';
+            return res.status(400).json({ error });
+        }
+        
+        res.json({ [symbol]: wallet.getBalance(symbol) });
+    }
+
+    const sellAmount = async (req: Request, res: Response, next: NextFunction) => {
+        const { symbol, amount } = req.body;
+        try {
+            wallet.sellAmount(symbol, amount);
+        } catch (e) {
+            const error = e instanceof Error
+                ? e.message
+                : 'unkwown error';
+            return res.status(400).json({ error });
+        }
+        
+        res.json({ [symbol]: wallet.getBalance(symbol) });
     }
 
     return {
         getBalance,
-        getValue
+        getValue,
+        buyAmount,
+        sellAmount
     }
 }
 

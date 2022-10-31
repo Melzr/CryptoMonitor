@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import WalletController from '../controllers/wallet';
-import { body } from 'express-validator';
-import { validateRule } from '../middlewares/validateRule';
-import { validateFields } from '../middlewares/validateFields';
+import { validateAmount } from '../middlewares/walletValidations';
 
 const walletRouter = () => {
     const router = Router();
@@ -10,7 +8,15 @@ const walletRouter = () => {
     
     router.get('/', walletController.getBalance);
 
-    router.delete('/:symbol', walletController.getValue);
+    router.post('/sell', [
+        validateAmount
+    ], walletController.sellAmount);
+
+    router.post('/buy', [
+        validateAmount
+    ], walletController.buyAmount);
+
+    router.get('/value/:symbol', walletController.getValue);
 
     return router;
 }
