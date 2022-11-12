@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
+    "start": "npx ts-node index.ts",
     "startDev": "nodemon",
     "test": "mocha -r ts-node/register src/test/*.test.ts"
   },
