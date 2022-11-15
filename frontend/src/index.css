@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
 }
 
 code {
@@ -13,6 +14,23 @@ code {
     monospace;
 }
 
+.navbar-dark {
+  padding: 20px;
+}
+
 .navbar-dark .navbar-brand {
+  color: #fecf43;
+  font-size: 27px;
+  margin-left: 10px;
+}
+
+
+.login {
+  font-size: 22px;
+  color: #fecf43;
+}
+
+.login-button {
+  font-size: 18px;
   color: #fecf43;
 }
