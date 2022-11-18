@@ -5,6 +5,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainScreen } from "./containers/MainScreen";
 import { Login } from "./containers/Login";
+import Register from "./containers/Register";
+import { Wallet } from "./containers/Wallet";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,8 +14,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/login" element={<Login />} />
       <Route path="/" element={<MainScreen />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/wallet" element={<Wallet />} />
     </Routes>
   </BrowserRouter>
 );

@@ -3,7 +3,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { LoginContainer, MainContainer } from "./styled";
+import GOOGLE_LOGO from "../../images/google-icon.png";
+import { LoginContainer, MainContainer, LoginButtonContainer, GoogleImage, GoogleButtonContainer, ButtonsContainer } from "./styled";
 
 export const Login = () => {
   return (
@@ -24,11 +25,23 @@ export const Login = () => {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" />
           </Form.Group>
-            <Button className="login-button" variant="dark" type="submit">
-            Submit
-          </Button>
+          <ButtonsContainer>
+            <LoginButtonContainer>
+              <Button className="login-button" variant="dark" type="submit">
+                Sign up
+              </Button>
+              <Button className="login-button" variant="dark" type="submit">
+                Sign in
+              </Button>
+            </LoginButtonContainer>
+            <GoogleButtonContainer>
+              <Button className="google-login-button" variant="dark" type="submit">
+                <GoogleImage src={GOOGLE_LOGO} alt="google-logo" />
+                Log in with Google
+              </Button>
+            </GoogleButtonContainer>
+          </ButtonsContainer>
         </Form>
-        <NavLink className="back">Go back to main screen</NavLink>
         </LoginContainer>
     </MainContainer>
   );

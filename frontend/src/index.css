@@ -33,4 +33,11 @@ code {
 .login-button {
   font-size: 18px;
   color: #fecf43;
+  width:150px;
+}
+
+.google-login-button{
+  font-size: 18px;
+  color: #fecf43;
+  width:330px;
 }
