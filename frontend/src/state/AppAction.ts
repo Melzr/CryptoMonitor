@@ -1,4 +1,3 @@
-//import * as actions from './actions';
+import * as actions from './actions';
 
-//export type AppAction = ReturnType<typeof actions[keyof typeof actions]>;
-export {};
+export type AppAction = ReturnType<typeof actions[keyof typeof actions]>;

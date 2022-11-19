@@ -1,10 +1,10 @@
-export type StackAction =
-  | {
-      type: "PUSH";
-      n: number;
+export type WalletAction =
+  {
+      type: "SELECT_COIN";
+      coin: Object;
     }
 
-export const pushToStack = (n: number): StackAction => ({
-  type: "PUSH",
-  n,
+export const setSelectedCoin = (coin: Object): WalletAction => ({
+  type: "SELECT_COIN",
+  coin,
 });
