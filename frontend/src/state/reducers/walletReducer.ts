@@ -2,11 +2,11 @@ import { Reducer } from "redux";
 import { AppAction } from "../AppAction";
 
 export type WalletState = {
-  coin: Object;
+  coin: String;
 };
 
 const initialState = {
-  coin: {},
+  coin: "",
 }
 
 const walletReducer: Reducer<WalletState, AppAction> = (state = initialState, action) => {

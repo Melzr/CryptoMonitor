@@ -2,6 +2,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { BodyText, OperateButton, TextContainer, WalletModalInput } from './styled';
 import Form from 'react-bootstrap/Form';
+import { useSelector } from 'react-redux';
+import { selectCurrentCoin } from '../../state/selectors/walletSelector';
 
 type Props = {
     onHide: () => void;
@@ -10,11 +12,13 @@ type Props = {
 }
 
 export const WalletModal = (props: Props) =>  {
+    const selectedCoin = useSelector(selectCurrentCoin);
+    
     return (
         <Modal show={props.show} centered onHide={props.onHide}>
         <Modal.Header closeButton closeVariant='white'>
           <Modal.Title>
-            Operate {props.name}
+            Operate {selectedCoin}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

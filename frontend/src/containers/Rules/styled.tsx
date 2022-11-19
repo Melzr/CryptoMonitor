@@ -19,6 +19,11 @@ export const ListContainer = styled.div`
 export const DescriptionContainer = styled.div`
   display: flex;
   flex: 3;
+  margin-left: 15px;
+  background-color: #212529;
+  font-size: 20px;
+  padding: 10px;
+  border: 2px solid #4d4d4d;
 `;
 
 export const Option = styled.div<Props>`
@@ -26,15 +31,16 @@ export const Option = styled.div<Props>`
   align-items: center;
   display: flex;
   color: ${(props) => (props.isSelected ? "black" : "#fecf43")};
-  background-color: ${(props) => (props.isSelected ? "#fecf43" : "black")};
+  background-color: #212529;
   text-align: center;
   font-size: 20px;
   padding: 10px;
-  border: 1px solid #fecf43;
+  border: 2px solid #4d4d4d;
   cursor: pointer;
   width: 100%;
   &:hover {
     color: black;
     background-color: #fecf43;
   }
+  margin-bottom: 3px;
 `;

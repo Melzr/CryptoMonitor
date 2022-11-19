@@ -5,4 +5,5 @@ export type { AppAction } from './AppAction';
 
 export const store = createStore(rootReducer);
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>; 
+

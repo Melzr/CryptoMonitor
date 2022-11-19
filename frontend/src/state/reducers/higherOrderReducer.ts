@@ -1,4 +1,4 @@
-import { AnyAction, Reducer } from 'redux';
+/* import { AnyAction, Reducer } from 'redux';
 import { AppAction } from '../AppAction';
 
 type HigherOrderState<S> = {
@@ -24,3 +24,6 @@ export function higherOrderReducer<S>(
     };
   };
 }
+*/
+
+export {}
