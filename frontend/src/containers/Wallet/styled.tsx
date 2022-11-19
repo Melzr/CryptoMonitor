@@ -1,7 +1,40 @@
 import styled from 'styled-components';
 
 
-export const Container = styled.div`
+export const MainContainer = styled.div`
+    width: 100%;
+    height: 100%;
     padding: 20px;
-    border: 2px solid #fecf43;
 `;	
+
+export const SellButton = styled.button`
+    width: 100px;
+    height: 100%;
+    font-size: 18px;
+    background-color: rgb(189, 0, 0);
+    border: none;
+    color: white;
+    border-radius: 10px;
+    &:hover {
+        cursor: pointer;
+    background-color: #670707;
+    }
+    margin: 5px;
+`;
+
+export const BuyButton = styled.button`
+    width: 100px;
+    height: 100%;
+    font-size: 18px;
+    background-color: green;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    &:hover {
+        cursor: pointer;
+    background-color: #004f00;
+
+    }
+    margin: 5px;
+`;
+

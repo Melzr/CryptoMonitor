@@ -15,7 +15,7 @@ export const MainScreen = () => {
         <Navbar.Brand>CryptoMonitor</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="#wallet" onClick={()=>setSection(SECTIONS.wallet)}>Wallet</Nav.Link>
-          <Nav.Link href="#rules">Rules</Nav.Link>
+          <Nav.Link href="#rules"onClick={()=>setSection(SECTIONS.rules)}>Rules</Nav.Link>
         </Nav>
       </NavContainer>
     </Navbar>

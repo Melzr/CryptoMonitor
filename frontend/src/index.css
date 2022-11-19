@@ -14,16 +14,21 @@ code {
     monospace;
 }
 
-.navbar-dark {
-  padding: 20px;
+.navbar-dark{
+  padding-left: 20px;
 }
 
 .navbar-dark .navbar-brand {
   color: #fecf43;
   font-size: 27px;
-  margin-left: 10px;
+  font-weight: bold;
 }
 
+.navbar-dark .nav-link{
+  color: #fecf43;
+  font-size: 25px;
+  margin-left: 20px;
+}
 
 .login {
   font-size: 22px;
@@ -40,4 +45,60 @@ code {
   font-size: 18px;
   color: #fecf43;
   width:330px;
+}
+
+
+
+.table .operate-column{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.table .operate-header{
+  
+  color:#fecf43;
+  height: 60px;
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+.table .wallet-header{
+  width: 520px; 
+  color: #fecf43;
+  font-size: 20px;
+  padding-left: 20px;
+  padding-bottom: 15px;
+}
+
+.table .wallet-cell{
+  padding-bottom: 10px;
+  padding-top: 15px;
+  font-size: 17px;
+  padding-left: 20px;
+}
+
+.modal{
+  color: #fecf43;
+  border: none;
+
+}
+
+.modal-header {
+  background-color: rgba(0, 0, 0, 0.90);
+  color: #fecf43;
+  border-color: #fecf43;
+  justify-content: center;
+}
+
+.modal-body{
+  background-color: rgba(0, 0, 0, 0.90);
+  border-color: #fecf43;
+}
+
+.modal-footer{
+  background-color: rgba(0, 0, 0, 0.90);
+  color: #fecf43;
+  border: none;
 }
