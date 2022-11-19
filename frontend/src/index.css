@@ -82,7 +82,8 @@ code {
 .modal{
   color: #fecf43;
   border: none;
-
+  text-align: center;
+  
 }
 
 .modal-header {
@@ -90,6 +91,11 @@ code {
   color: #fecf43;
   border-color: #fecf43;
   justify-content: center;
+  
+}
+
+.modal-title{
+  font-size: 30px;
 }
 
 .modal-body{
@@ -100,5 +106,13 @@ code {
 .modal-footer{
   background-color: rgba(0, 0, 0, 0.90);
   color: #fecf43;
-  border: none;
+  border-color: #fecf43;
+  justify-content: center;
+  display: flex;
+}
+
+.btn-close{
+  color: white;
+  font-size: 20px;
+
 }
