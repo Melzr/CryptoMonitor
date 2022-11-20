@@ -8,7 +8,6 @@ import { selectCurrentCoin } from '../../state/selectors/walletSelector';
 type Props = {
     onHide: () => void;
     show: boolean;
-    name: string;
 }
 
 export const WalletModal = (props: Props) =>  {

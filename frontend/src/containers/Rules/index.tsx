@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+import { setSelectedRule } from "../../state/actions";
+import { useDispatch } from "react-redux";
+import { selectCurrentRule } from '../../state/selectors/rulesSelector';
 import {
   DeleteButton,
   DescriptionContainer,
@@ -8,9 +11,13 @@ import {
   OperateButton,
   Option,
 } from "./styled";
+import { useSelector } from "react-redux";
+import { Rule } from "../../interfaces/interfaces";
+
+
 
 export const Rules = () => {
-  const RULES = [
+  const RULES: Rule[] = [
     {
       name: "Vender si sube 15%",
       condition: {
@@ -34,12 +41,16 @@ export const Rules = () => {
           {
             type: "CALL",
             name: "LAST",
-            arguments: {
-              type: "DATA",
-              symbol: "BTC/USDT",
+            arguments: [{
+              type: 'DATA',
+              symbol: 'BTC/USDT',
               from: 3600,
               until: 0,
-            },
+              default: [{
+                  type: 'CONSTANT',
+                  value: 0
+              }]
+          }],
           },
         ],
       },
@@ -58,12 +69,16 @@ export const Rules = () => {
           value: {
             type: "CALL",
             name: "LAST",
-            arguments: {
+            arguments: [{
               type: "DATA",
               symbol: "BTC/USDT",
               from: 3600,
               until: 0,
-            },
+              default: [{
+                type: 'CONSTANT',
+                value: 0
+              }]
+            }],
           },
         },
       ],
@@ -91,12 +106,16 @@ export const Rules = () => {
           {
             type: "CALL",
             name: "LAST",
-            arguments: {
+            arguments: [{
               type: "DATA",
               symbol: "BTC/USDT",
               from: 3600,
               until: 0,
-            },
+              default: [{
+                type: 'CONSTANT',
+                value: 0
+              }],
+            }],
           },
         ],
       },
@@ -115,12 +134,16 @@ export const Rules = () => {
           value: {
             type: "CALL",
             name: "LAST",
-            arguments: {
+            arguments: [{
               type: "DATA",
               symbol: "BTC/USDT",
               from: 3600,
               until: 0,
-            },
+              default: [{
+                type: 'CONSTANT',
+                value: 0
+              }]
+            }],
           },
         },
       ],
@@ -148,12 +171,16 @@ export const Rules = () => {
           {
             type: "CALL",
             name: "LAST",
-            arguments: {
+            arguments: [{
               type: "DATA",
               symbol: "BTC/USDT",
               from: 3600,
               until: 0,
-            },
+              default: [{
+                type: 'CONSTANT',
+                value: 0
+              }]
+            }],
           },
         ],
       },
@@ -172,20 +199,28 @@ export const Rules = () => {
           value: {
             type: "CALL",
             name: "LAST",
-            arguments: {
+            arguments: [{
               type: "DATA",
               symbol: "BTC/USDT",
               from: 3600,
               until: 0,
-            },
+              default: [{
+                type: 'CONSTANT',
+                value: 0
+              }]
+            }],
           },
         },
       ],
     },
   ];
-
+  const dispatch = useDispatch();
   const [selected, setSelected] = useState(RULES[0]);
-
+  const handleClick = (rule: Rule) => {
+    setSelected(rule);
+    dispatch(setSelectedRule(rule.name));
+  }
+  const selectedRule = useSelector(selectCurrentRule);
   return (
     <MainContainer>
       <ListContainer>
@@ -193,7 +228,7 @@ export const Rules = () => {
           return (
             <Option
               isSelected={selected.name == rule.name}
-              onClick={() => setSelected(rule)}
+              onClick={() => handleClick(rule)}
             >
               {rule.name}
               <div>
@@ -209,7 +244,7 @@ export const Rules = () => {
         })}
       </ListContainer>
       <DescriptionContainer>
-          
+          {selectedRule}
       </DescriptionContainer>
     </MainContainer>
   );

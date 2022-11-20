@@ -6,10 +6,11 @@ import { WalletModal } from "../../components/OperateModal";
 import { Console } from "console";
 import { useDispatch } from "react-redux";
 import { setSelectedCoin } from "../../state/actions";
+import { Coin } from "../../interfaces/interfaces";
 
 export const Wallet = () => {
 
-  const COINS = [
+  const COINS: Coin[] = [
     {
       name: "BTC",
       price: 16500,
@@ -61,7 +62,7 @@ export const Wallet = () => {
       <WalletModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        name={"BTC/USDT"}
+
       />
       <table className="table table-striped table-dark">
         <thead className="header-container">
