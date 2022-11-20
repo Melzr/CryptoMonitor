@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Wallet } from "../wallet";
+import { Wallet } from "../service/wallet";
 
 const walletController = () => {
     const wallet = Wallet.Instance;

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { RuleManager } from "../ruleManager";
+import { RuleManager } from "../service/ruleManager";
 
 const rulesController = () => {
     const ruleManager = RuleManager.Instance;

@@ -1,7 +1,7 @@
 import { describe, it } from "mocha";
 import assert from "assert";
-import { Wallet } from "../wallet";
-import { RuleManager } from "../ruleManager";
+import { Wallet } from "../service/wallet";
+import { RuleManager } from "../service/ruleManager";
 
 describe('RuleManager', function () {
     it('should be not null after initialize it', function(){

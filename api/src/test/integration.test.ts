@@ -1,9 +1,9 @@
 import { describe, it } from "mocha";
 import assert from "assert";
-import { Wallet } from "../wallet";
-import { VariableManager } from "../variableManager";
-import { DataManager } from "../dataManager";
-import { RuleManager } from "../ruleManager";
+import { Wallet } from "../service/wallet";
+import { VariableManager } from "../service/variableManager";
+import { DataManager } from "../service/dataManager";
+import { RuleManager } from "../service/ruleManager";
 
 
 describe("integration tests", function () {

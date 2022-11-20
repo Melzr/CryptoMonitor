@@ -1,7 +1,7 @@
 import { describe, it } from "mocha";
 import assert from "assert";
-import { Value } from "../value";
-import { VariableManager } from "../variableManager";
+import { Value } from "../service/value";
+import { VariableManager } from "../service/variableManager";
 
 describe('value', function () {
     it('should be able to parse a constant number', function () {

@@ -1,6 +1,6 @@
 import { describe, it } from "mocha";
 import assert from "assert";
-import { Wallet } from "../wallet";
+import { Wallet } from "../service/wallet";
 
 describe('wallet', function () {
     const wallet = Wallet.Instance;

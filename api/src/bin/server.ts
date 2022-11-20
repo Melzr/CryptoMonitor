@@ -2,10 +2,10 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import RulesRouter from '../routes/rules';
 import WalletRouter from '../routes/wallet';
-import { Wallet } from '../wallet';
-import { DataManager } from '../dataManager';
-import { RuleManager } from '../ruleManager';
-import { VariableManager } from '../variableManager';
+import { Wallet } from '../service/wallet';
+import { DataManager } from '../service/dataManager';
+import { RuleManager } from '../service/ruleManager';
+import { VariableManager } from '../service/variableManager';
 
 export class Server {
     app: Express;

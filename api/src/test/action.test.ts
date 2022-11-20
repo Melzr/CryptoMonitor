@@ -1,8 +1,8 @@
-import { Value, ValueType } from '../value';
-import { VariableManager } from '../variableManager';
-import { Wallet } from '../wallet';
+import { Value, ValueType } from '../service/value';
+import { VariableManager } from '../service/variableManager';
+import { Wallet } from '../service/wallet';
 import assert from "assert";
-import { Action } from '../action';
+import { Action } from '../service/action';
 
 describe('action', function () {
     it('should be able to set a variable', function () {

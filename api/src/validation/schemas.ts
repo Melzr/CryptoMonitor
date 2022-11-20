@@ -1,7 +1,7 @@
 import Joi from 'joi';
-import { ActionType } from '../action';
-import { Rule } from '../ruleManager';
-import { ValidCallNames, ValueType } from '../value';
+import { ActionType } from '../service/action';
+import { Rule } from '../service/ruleManager';
+import { ValidCallNames, ValueType } from '../service/value';
 
 interface RuleName extends Rule {
     name: string;
