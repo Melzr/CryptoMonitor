@@ -34,9 +34,9 @@ const describeValue = (value: ValueType, spacing: number) => {
     case "DATA":
       return (
         <div>
-          <div>{"Symbol: " + value.symbol}</div>;
-          <div>{"From: " + value.from}</div>;
-          <div>{"Until: " + value.until}</div>;
+          <div>{"Symbol: " + value.symbol}</div>
+          <div>{"From: " + value.from}</div>
+          <div>{"Until: " + value.until}</div>
         </div>
       );
   }
