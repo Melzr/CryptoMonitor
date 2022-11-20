@@ -1,19 +1,20 @@
 import { Reducer } from "redux";
+import { Rule } from "../../interfaces/interfaces";
 import { AppAction } from "../AppAction";
 
 export type RulesState = {
-  name: String;
+  rule: Rule | null;
 };
 
 const initialState = {
-  name: "",
+  rule: null,
 }
 
 const rulesReducer: Reducer<RulesState, AppAction> = (state = initialState, action) => {
   switch (action.type) {
     case 'SELECT_RULE':
       return {
-        name: action.name,
+        rule: action.rule,
       };
     default:
       return state;

@@ -3,13 +3,16 @@ import { Button } from "react-bootstrap";
 import { setSelectedRule } from "../../state/actions";
 import { useDispatch } from "react-redux";
 import { selectCurrentRule } from '../../state/selectors/rulesSelector';
+import { AiTwotoneDelete } from "react-icons/ai";
+import { HiPencil } from "react-icons/hi";
 import {
-  DeleteButton,
+  RuleButton,
   DescriptionContainer,
   ListContainer,
   MainContainer,
   OperateButton,
   Option,
+  RuleText,
 } from "./styled";
 import { useSelector } from "react-redux";
 import { Rule } from "../../interfaces/interfaces";
@@ -218,7 +221,7 @@ export const Rules = () => {
   const [selected, setSelected] = useState(RULES[0]);
   const handleClick = (rule: Rule) => {
     setSelected(rule);
-    dispatch(setSelectedRule(rule.name));
+    dispatch(setSelectedRule(rule));
   }
   const selectedRule = useSelector(selectCurrentRule);
   return (
@@ -232,19 +235,21 @@ export const Rules = () => {
             >
               {rule.name}
               <div>
-                <OperateButton isDelete = {true}>
-                  Delete
-                </OperateButton>
-                <OperateButton isDelete = {false}>
-                  Modify
-                </OperateButton>
+                <RuleButton isSelected={selected.name == rule.name}>
+                  <AiTwotoneDelete color="red"/> 
+                </RuleButton>
+                <RuleButton isSelected={selected.name == rule.name}>
+                  <HiPencil color="yellow"/>
+                </RuleButton>
               </div>
             </Option>
           );
         })}
       </ListContainer>
       <DescriptionContainer>
-          {selectedRule}
+          <RuleText>
+            {selectedRule ? JSON.stringify(selectedRule, null, "\n") : "No rule selected"}
+          </RuleText>
       </DescriptionContainer>
     </MainContainer>
   );

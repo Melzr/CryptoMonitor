@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { AiTwotoneDelete } from "react-icons/ai";
 
 interface Props {
   isSelected: boolean;
@@ -35,7 +36,7 @@ export const Option = styled.div<Props>`
   align-items: center;
   display: flex;
   color: ${(props) => (props.isSelected ? "black" : "white")};
-  background-color: ${(props) => (props.isSelected ? "#7c848a" : "#212529")};;
+  background-color: ${(props) => (props.isSelected ? "#7c848a" : "#212529")};
   text-align: center;
   font-size: 20px;
   padding: 10px;
@@ -43,6 +44,11 @@ export const Option = styled.div<Props>`
   cursor: pointer;
   width: 100%;
   margin-bottom: 3px;
+`;
+
+export const RuleButton = styled.button<Props>`
+   background-color: ${(props) => (props.isSelected ? "#7c848a" : "#212529")};
+   border: none;
 `;
 
 
@@ -63,19 +69,8 @@ export const OperateButton = styled.button<ButtonProps>`
     margin: 5px;
 `;
 
-export const DeleteButton = styled.button`
-    width: 80px;
-    height: 100%;
-    font-size: 18px;
-    background-color: rgba(210, 29, 29, 0.797);
-    border: none;
-    color: #000000cc;
-    font-weight: bold;
-    border-radius: 10px;
-    &:hover {
-        cursor: pointer;
-        background-color: #670707;
-        color: #000000cc;
-    }
-    margin: 5px;
-`;
+
+
+export const RuleText = styled.p`
+  color: white;
+`

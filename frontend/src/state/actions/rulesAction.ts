@@ -1,10 +1,12 @@
+import { Rule } from "../../interfaces/interfaces";
+
 export type RulesAction = {
     type: "SELECT_RULE";
-    name: String;
+    rule: Rule;
   };
   
-  export const setSelectedRule = (name: String): RulesAction => ({
+  export const setSelectedRule = (rule: Rule): RulesAction => ({
     type: "SELECT_RULE",
-    name,
+    rule,
   });
   
