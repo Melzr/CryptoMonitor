@@ -42,6 +42,7 @@ export const ListContainer = styled.div`
 export const DescriptionContainer = styled.div`
   display: flex;
   flex: 4;
+  color: white;
   margin-left: 15px;
   background-color: #212529;
   height: 600px;
@@ -106,6 +107,3 @@ export const OperateButton = styled.button<ButtonProps>`
   margin: 5px;
 `;
 
-export const RuleText = styled.p`
-  color: white;
-`;

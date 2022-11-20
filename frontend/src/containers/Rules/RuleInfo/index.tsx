@@ -7,9 +7,10 @@ import {
   RuleContainer,
   RuleSubtitle,
   RuleTitle,
-  ValueBox,
+  Box,
+  Container,
 } from "./styled";
-import { showValue } from "./utils";
+import { showAction, showValue } from "./utils";
 
 interface Props {
   rule: Rule;
@@ -19,7 +20,7 @@ export const RuleInfo = (props: Props) => {
   const { rule } = props;
 
   return (
-    <div>
+    <Container>
       <Header>
         <RuleTitle>{rule.name}</RuleTitle>
       </Header>
@@ -30,10 +31,10 @@ export const RuleInfo = (props: Props) => {
           {showValue(rule.condition, 0)}
         </ConditionContainer>
         <ActionContainer>
-          <RuleSubtitle>Condition</RuleSubtitle>
-          {showValue(rule.condition, 0)}
+          <RuleSubtitle>Action</RuleSubtitle>
+          {showAction(rule.action, 0)}
         </ActionContainer>
       </RuleContainer>
-    </div>
+    </Container>
   );
 };

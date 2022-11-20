@@ -10,7 +10,6 @@ import {
   ListContainer,
   MainContainer,
   Option,
-  RuleText,
 } from "./styled";
 import { useSelector } from "react-redux";
 import { Rule } from "../../interfaces/interfaces";
@@ -65,13 +64,11 @@ export const Rules = () => {
         })}
       </ListContainer>
       <DescriptionContainer>
-        <RuleText>
-          {selectedRule ? (
-            <RuleInfo rule={selectedRule} />
-          ) : (
-            <div>"No rule selected"</div>
-          )}
-        </RuleText>
+        {selectedRule ? (
+          <RuleInfo rule={selectedRule} />
+        ) : (
+          <div>No rule selected</div>
+        )}
       </DescriptionContainer>
     </MainContainer>
   );

@@ -7,15 +7,20 @@ interface ValueProps {
 
 export const RuleContainer = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  overflow: hidden;
+  flex-wrap: wrap;
 `;
 
-export const ValueBox = styled.div<ValueProps>`
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
+
+export const Box = styled.div<ValueProps>`
   display: flex;
   flex-direction: column;
   margin-left: ${(props) => String(props.marginSize * 15) + "px"};
@@ -46,11 +51,11 @@ export const RuleSubtitle = styled.h4`
 export const ConditionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 2;
 `;
 
 export const ActionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 2;
 `;

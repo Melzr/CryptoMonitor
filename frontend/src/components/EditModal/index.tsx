@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentCoin } from "../../state/selectors/walletSelector";
 import { GenericButton } from "../Button";
 import { selectCurrentRule } from "../../state/selectors/rulesSelector";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   onHide: () => void;
@@ -15,7 +15,11 @@ type Props = {
 
 export const EditRuleModal = (props: Props) => {
   const selectedRule = useSelector(selectCurrentRule);
-  const [rule, setRule] = useState(JSON.stringify(selectedRule, null, '\t'));
+  const [rule, setRule] = useState(JSON.stringify(selectedRule, null, "\t"));
+  
+  useEffect(() => {
+    setRule(JSON.stringify(selectedRule, null, "\t"));
+  }, [selectedRule]);
 
   return (
     <Modal show={props.show} centered onHide={props.onHide}>
@@ -23,7 +27,11 @@ export const EditRuleModal = (props: Props) => {
         <Modal.Title>Edit rule</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <EditInput rows={10} value={rule} onChange={(e) => setRule(e.target.value)} />
+        <EditInput
+          rows={10}
+          value={rule}
+          onChange={(e) => setRule(e.target.value)}
+        />
       </Modal.Body>
       <Modal.Footer>
         <GenericButton onClick={props.onHide} text={"Cancel"} />
