@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
 import { setSelectedRule } from "../../state/actions";
 import { useDispatch } from "react-redux";
-import { selectCurrentRule } from '../../state/selectors/rulesSelector';
+import { selectCurrentRule } from "../../state/selectors/rulesSelector";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { HiPencil } from "react-icons/hi";
 import {
@@ -10,236 +9,55 @@ import {
   DescriptionContainer,
   ListContainer,
   MainContainer,
-  OperateButton,
   Option,
   RuleText,
 } from "./styled";
 import { useSelector } from "react-redux";
 import { Rule } from "../../interfaces/interfaces";
+import { RULES } from "./constants";
+import { ConfirmationModal } from "../../components/ConfirmationModal";
+import { EditRuleModal } from "../../components/EditModal";
 
-
+import { RuleInfo } from "./RuleInfo";
 
 export const Rules = () => {
-  const RULES: Rule[] = [
-    {
-      name: "Vender si sube 15%",
-      condition: {
-        type: "CALL",
-        name: ">",
-        arguments: [
-          {
-            type: "CALL",
-            name: "*",
-            arguments: [
-              {
-                type: "CONSTANT",
-                value: 1.15,
-              },
-              {
-                type: "VARIABLE",
-                name: "LAST_SELL_VALUE_BTC/USDT",
-              },
-            ],
-          },
-          {
-            type: "CALL",
-            name: "LAST",
-            arguments: [{
-              type: 'DATA',
-              symbol: 'BTC/USDT',
-              from: 3600,
-              until: 0,
-              default: [{
-                  type: 'CONSTANT',
-                  value: 0
-              }]
-          }],
-          },
-        ],
-      },
-      action: [
-        {
-          type: "SELL_MARKET",
-          symbol: "BTC/USDT",
-          amount: {
-            type: "CONSTANT",
-            value: 0.1,
-          },
-        },
-        {
-          type: "SET_VARIABLE",
-          name: "LAST_SELL_VALUE_BTC/USDT",
-          value: {
-            type: "CALL",
-            name: "LAST",
-            arguments: [{
-              type: "DATA",
-              symbol: "BTC/USDT",
-              from: 3600,
-              until: 0,
-              default: [{
-                type: 'CONSTANT',
-                value: 0
-              }]
-            }],
-          },
-        },
-      ],
-    },
-    {
-      name: "Pagar",
-      condition: {
-        type: "CALL",
-        name: ">",
-        arguments: [
-          {
-            type: "CALL",
-            name: "*",
-            arguments: [
-              {
-                type: "CONSTANT",
-                value: 1.15,
-              },
-              {
-                type: "VARIABLE",
-                name: "LAST_SELL_VALUE_BTC/USDT",
-              },
-            ],
-          },
-          {
-            type: "CALL",
-            name: "LAST",
-            arguments: [{
-              type: "DATA",
-              symbol: "BTC/USDT",
-              from: 3600,
-              until: 0,
-              default: [{
-                type: 'CONSTANT',
-                value: 0
-              }],
-            }],
-          },
-        ],
-      },
-      action: [
-        {
-          type: "SELL_MARKET",
-          symbol: "BTC/USDT",
-          amount: {
-            type: "CONSTANT",
-            value: 0.1,
-          },
-        },
-        {
-          type: "SET_VARIABLE",
-          name: "LAST_SELL_VALUE_BTC/USDT",
-          value: {
-            type: "CALL",
-            name: "LAST",
-            arguments: [{
-              type: "DATA",
-              symbol: "BTC/USDT",
-              from: 3600,
-              until: 0,
-              default: [{
-                type: 'CONSTANT',
-                value: 0
-              }]
-            }],
-          },
-        },
-      ],
-    },
-    {
-      name: "Otra regla",
-      condition: {
-        type: "CALL",
-        name: ">",
-        arguments: [
-          {
-            type: "CALL",
-            name: "*",
-            arguments: [
-              {
-                type: "CONSTANT",
-                value: 1.15,
-              },
-              {
-                type: "VARIABLE",
-                name: "LAST_SELL_VALUE_BTC/USDT",
-              },
-            ],
-          },
-          {
-            type: "CALL",
-            name: "LAST",
-            arguments: [{
-              type: "DATA",
-              symbol: "BTC/USDT",
-              from: 3600,
-              until: 0,
-              default: [{
-                type: 'CONSTANT',
-                value: 0
-              }]
-            }],
-          },
-        ],
-      },
-      action: [
-        {
-          type: "SELL_MARKET",
-          symbol: "BTC/USDT",
-          amount: {
-            type: "CONSTANT",
-            value: 0.1,
-          },
-        },
-        {
-          type: "SET_VARIABLE",
-          name: "LAST_SELL_VALUE_BTC/USDT",
-          value: {
-            type: "CALL",
-            name: "LAST",
-            arguments: [{
-              type: "DATA",
-              symbol: "BTC/USDT",
-              from: 3600,
-              until: 0,
-              default: [{
-                type: 'CONSTANT',
-                value: 0
-              }]
-            }],
-          },
-        },
-      ],
-    },
-  ];
   const dispatch = useDispatch();
-  const [selected, setSelected] = useState(RULES[0]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
   const handleClick = (rule: Rule) => {
-    setSelected(rule);
     dispatch(setSelectedRule(rule));
-  }
+  };
+
   const selectedRule = useSelector(selectCurrentRule);
+
   return (
     <MainContainer>
+      <ConfirmationModal
+        onConfirm={() => console.log("aa")}
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        title={"Delete rule"}
+        text={"Are you sure you want to delete this rule?"}
+      />
+      <EditRuleModal
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+      />
       <ListContainer>
         {RULES.map((rule) => {
           return (
             <Option
-              isSelected={selected.name == rule.name}
+              isSelected={selectedRule ? selectedRule.name == rule.name : false}
               onClick={() => handleClick(rule)}
             >
               {rule.name}
               <div>
-                <RuleButton isSelected={selected.name == rule.name}>
-                  <AiTwotoneDelete color="red"/> 
+                <RuleButton onClick={() => setShowDeleteModal(true)}>
+                  <AiTwotoneDelete color="red" />
                 </RuleButton>
-                <RuleButton isSelected={selected.name == rule.name}>
-                  <HiPencil color="yellow"/>
+                <RuleButton onClick={() => setShowEditModal(true)}>
+                  <HiPencil color="yellow" />
                 </RuleButton>
               </div>
             </Option>
@@ -247,9 +65,13 @@ export const Rules = () => {
         })}
       </ListContainer>
       <DescriptionContainer>
-          <RuleText>
-            {selectedRule ? JSON.stringify(selectedRule, null, "\n") : "No rule selected"}
-          </RuleText>
+        <RuleText>
+          {selectedRule ? (
+            <RuleInfo rule={selectedRule} />
+          ) : (
+            <div>"No rule selected"</div>
+          )}
+        </RuleText>
       </DescriptionContainer>
     </MainContainer>
   );

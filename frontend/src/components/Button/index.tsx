@@ -1,6 +1,11 @@
-import React from 'react';
-import BootstrapTable from 'react-bootstrap/Table';
+import React from "react";
+import { OperateButton } from "./styled";
 
-export const Button = () => {
-    return <button>Click me</button>;
+type Props = {
+  onClick: () => void;
+  text: string;
+};
+
+export const GenericButton = (props: Props) => {
+  return <OperateButton onClick={props.onClick}>{props.text}</OperateButton>;
 };
