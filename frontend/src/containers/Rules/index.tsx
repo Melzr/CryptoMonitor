@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 import {
+  DeleteButton,
   DescriptionContainer,
   ListContainer,
   MainContainer,
+  OperateButton,
   Option,
 } from "./styled";
 
@@ -193,11 +196,21 @@ export const Rules = () => {
               onClick={() => setSelected(rule)}
             >
               {rule.name}
+              <div>
+                <OperateButton isDelete = {true}>
+                  Delete
+                </OperateButton>
+                <OperateButton isDelete = {false}>
+                  Modify
+                </OperateButton>
+              </div>
             </Option>
           );
         })}
       </ListContainer>
-      <DescriptionContainer />
+      <DescriptionContainer>
+          
+      </DescriptionContainer>
     </MainContainer>
   );
 };

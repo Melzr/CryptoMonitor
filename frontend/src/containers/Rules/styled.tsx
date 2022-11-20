@@ -4,6 +4,10 @@ interface Props {
   isSelected: boolean;
 }
 
+interface ButtonProps{
+  isDelete: boolean;
+}
+
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -27,20 +31,51 @@ export const DescriptionContainer = styled.div`
 `;
 
 export const Option = styled.div<Props>`
-  justify-items: center;
+  justify-content: space-between;
   align-items: center;
   display: flex;
-  color: ${(props) => (props.isSelected ? "black" : "#fecf43")};
-  background-color: #212529;
+  color: ${(props) => (props.isSelected ? "black" : "white")};
+  background-color: ${(props) => (props.isSelected ? "#7c848a" : "#212529")};;
   text-align: center;
   font-size: 20px;
   padding: 10px;
   border: 2px solid #4d4d4d;
   cursor: pointer;
   width: 100%;
-  &:hover {
-    color: black;
-    background-color: #fecf43;
-  }
   margin-bottom: 3px;
+`;
+
+
+export const OperateButton = styled.button<ButtonProps>`
+    width: 80px;
+    height: 100%;
+    font-size: 18px;
+    background-color: ${(props) => (props.isDelete ? "#c00808" : "#fecf43")};
+    border: none;
+    color: #000000cc;
+    font-weight: bold;
+    border-radius: 10px;
+    &:hover {
+        cursor: pointer;
+        background-color: ${(props) => (props.isDelete ? "#670707" : "#c59400")};
+        color: #000000cc;
+    }
+    margin: 5px;
+`;
+
+export const DeleteButton = styled.button`
+    width: 80px;
+    height: 100%;
+    font-size: 18px;
+    background-color: rgba(210, 29, 29, 0.797);
+    border: none;
+    color: #000000cc;
+    font-weight: bold;
+    border-radius: 10px;
+    &:hover {
+        cursor: pointer;
+        background-color: #670707;
+        color: #000000cc;
+    }
+    margin: 5px;
 `;
