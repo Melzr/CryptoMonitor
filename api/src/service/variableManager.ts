@@ -15,4 +15,8 @@ export class VariableManager {
     public getVariable(name: string): number | string | boolean {
         return this._variables[name];
     }
+
+    public getVariables() {
+        return this._variables;
+    }
 }

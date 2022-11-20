@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import RulesRouter from '../routes/rules';
 import WalletRouter from '../routes/wallet';
+import UserRouter from '../routes/user';
 import { Wallet } from '../service/wallet';
 import { DataManager } from '../service/dataManager';
 import { RuleManager } from '../service/ruleManager';
@@ -13,6 +14,7 @@ export class Server {
     paths: {
         rules: string;
         wallet: string;
+        user: string;
     }
     wallet: Wallet;
     dataManager: DataManager;
@@ -29,7 +31,8 @@ export class Server {
 
         this.paths = {
             rules: '/api/rules',
-            wallet: '/api/wallet'
+            wallet: '/api/wallet',
+            user: '/api/user'
         }
 
         this.middlewares();
@@ -44,6 +47,7 @@ export class Server {
     routes() {  
         this.app.use( this.paths.rules, RulesRouter() );
         this.app.use( this.paths.wallet, WalletRouter() );
+        this.app.use( this.paths.user, UserRouter() );
     }
 
     listen() {

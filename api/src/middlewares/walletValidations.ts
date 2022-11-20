@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { schemas } from "../validation/schemas";
+import { ChangeAmountSchema } from "../validation/wallet";
 
 export const validateAmount = (req: Request, res: Response, next: NextFunction) => {
-    const { error } = schemas.changeAmount.validate(req['body']);
+    const { error } = ChangeAmountSchema.validate(req['body']);
 
     if (error) {
         return res.status(400).json({

@@ -20,20 +20,14 @@ const ValueTypeSchema = Joi.object<ValueType>().keys({
     default: Joi.array().items(Joi.link('...')).when('type', { is: 'DATA', then: Joi.required() })
 });
 
-export const schemas = {
-    rule: Joi.object<RuleName>().keys({   
-        name: Joi.string().required().min(1).max(200),
-        condition: ValueTypeSchema.required(),
-        action: Joi.array().items(Joi.object<ActionType>().keys({
-            type: Joi.string().required().valid('BUY_MARKET', 'SELL_MARKET', 'SET_VARIABLE'),
-            symbol: Joi.string().when('type', { is: ['BUY_MARKET', 'SELL_MARKET'], then: Joi.required() }),
-            amount: ValueTypeSchema.when('type', { is: ['BUY_MARKET', 'SELL_MARKET'], then: Joi.required() }),
-            name: Joi.string().when('type', { is: 'SET_VARIABLE', then: Joi.required() }),
-            value: ValueTypeSchema.when('type', { is: 'SET_VARIABLE', then: Joi.required() })
-        })).required()
-    }),
-    changeAmount: Joi.object<{ symbol: string; amount: number }>().keys({
-        symbol: Joi.string().required(),
-        amount: Joi.number().required(),
-    }),
-}
+export const RuleSchema = Joi.object<RuleName>().keys({   
+    name: Joi.string().required().min(1).max(200),
+    condition: ValueTypeSchema.required(),
+    action: Joi.array().items(Joi.object<ActionType>().keys({
+        type: Joi.string().required().valid('BUY_MARKET', 'SELL_MARKET', 'SET_VARIABLE'),
+        symbol: Joi.string().when('type', { is: ['BUY_MARKET', 'SELL_MARKET'], then: Joi.required() }),
+        amount: ValueTypeSchema.when('type', { is: ['BUY_MARKET', 'SELL_MARKET'], then: Joi.required() }),
+        name: Joi.string().when('type', { is: 'SET_VARIABLE', then: Joi.required() }),
+        value: ValueTypeSchema.when('type', { is: 'SET_VARIABLE', then: Joi.required() })
+    })).required()
+})

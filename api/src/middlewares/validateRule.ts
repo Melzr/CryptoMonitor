@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { schemas } from "../validation/schemas";
+import { RuleSchema } from "../validation/rule";
 
 export const validateRule = (req: Request, res: Response, next: NextFunction) => {
     const { rule } = req['body'];
@@ -10,7 +10,7 @@ export const validateRule = (req: Request, res: Response, next: NextFunction) =>
         });
     }
 
-    const { error } = schemas.rule.validate(rule);
+    const { error } = RuleSchema.validate(rule);
 
     if (error) {
         return res.status(400).json({
