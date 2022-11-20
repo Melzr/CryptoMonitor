@@ -51,7 +51,7 @@ export const Wallet = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const dispatch = useDispatch();
 
-  const handleClick = (coin: string) => {
+  const handleClick = (coin: Coin) => {
     setModalShow(true);
     dispatch(setSelectedCoin(coin));
   }
@@ -62,7 +62,6 @@ export const Wallet = () => {
       <WalletModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-
       />
       <table className="table table-striped table-dark">
         <thead className="header-container">
@@ -87,7 +86,7 @@ export const Wallet = () => {
                 <td className="wallet-cell">{coin.price}</td>
                 <td className="wallet-cell">{coin.amount}</td>
                 <td className="operate-column">
-                  <OperateButton onClick={() => handleClick(coin.name)}>
+                  <OperateButton onClick={() => handleClick(coin)}>
                     Operar
                   </OperateButton>
                 </td>

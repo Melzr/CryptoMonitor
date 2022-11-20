@@ -17,7 +17,7 @@ export const WalletModal = (props: Props) =>  {
         <Modal show={props.show} centered onHide={props.onHide}>
         <Modal.Header closeButton closeVariant='white'>
           <Modal.Title>
-            Operate {selectedCoin}
+            Operate {selectedCoin.name}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -26,7 +26,7 @@ export const WalletModal = (props: Props) =>  {
                     Cotizacion:
                 </BodyText>
                 <BodyText color="white">
-                    2404021
+                    {selectedCoin.price}
                 </BodyText>
             </TextContainer>
             <TextContainer>
@@ -34,7 +34,7 @@ export const WalletModal = (props: Props) =>  {
                     Balance:
                 </BodyText>
                 <BodyText color="white">
-                    0.0021312
+                    {selectedCoin.amount}
                 </BodyText>
             </TextContainer>
             <TextContainer>

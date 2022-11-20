@@ -1,9 +1,11 @@
+import { Coin } from "../../interfaces/interfaces";
+
 export type WalletAction = {
   type: "SELECT_COIN";
-  coin:String;
+  coin: Coin;
 };
 
-export const setSelectedCoin = (coin: String): WalletAction => ({
+export const setSelectedCoin = (coin: Coin): WalletAction => ({
   type: "SELECT_COIN",
   coin,
 });
