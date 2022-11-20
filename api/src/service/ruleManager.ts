@@ -36,6 +36,7 @@ export class RuleManager {
 
     public executeRules(symbol: string) {
         let actualValue = DataManager.Instance.getLastValue(symbol);
+        console.log("Ejecutando reglas para " + symbol + " con valor " + actualValue);
         if (this._operable_values[symbol] && actualValue && actualValue < this._operable_values[symbol]){
             return;
         }
@@ -48,7 +49,7 @@ export class RuleManager {
                     let a = actions[action];
                     if(a.type === 'SET_VARIABLE'){
                         Action.perform(actions[action]);
-                    } else if (symbol === a.symbol) {
+                    } else if (symbol === a.symbol.replace("/", "")) {
                         Action.perform(actions[action]);
                     }
                 }
