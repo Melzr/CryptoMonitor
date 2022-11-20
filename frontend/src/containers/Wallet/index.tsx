@@ -8,6 +8,45 @@ import { useDispatch } from "react-redux";
 import { setSelectedCoin } from "../../state/actions";
 
 export const Wallet = () => {
+
+  const COINS = [
+    {
+      name: "BTC",
+      price: 16500,
+      amount:0.010200,
+    },
+    {
+      name: "ETH",
+      price: 214412,
+      amount:0.02142,
+    },
+    {
+      name: "BNB",
+      price: 214412,
+      amount: 0.1440020,
+    },
+    {
+      name: "CHZ",
+      price: 0.2441,
+      amount:0.00,
+    },
+    {
+      name: "SOL",
+      price: 12.81,
+      amount:43,
+    },
+    {
+      name: "ADA",
+      price: 0.3261,
+      amount:0.00,
+    },
+    {
+      name: "DOT",
+      price: 5.70,
+      amount:0.00,
+    },
+  ];
+
   const [modalShow, setModalShow] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -40,36 +79,20 @@ export const Wallet = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="wallet-cell">Bitcoin</td>
-            <td className="wallet-cell">62000000</td>
-            <td className="wallet-cell">0.100020</td>
-            <td className="operate-column">
-              <OperateButton onClick={() => handleClick('Bitcoin')}>
-                Operar
-              </OperateButton>
-            </td>
-          </tr>
-          <tr>
-            <td className="wallet-cell">Ethereum</td>
-            <td className="wallet-cell">420002</td>
-            <td className="wallet-cell">0.00000</td>
-            <td className="operate-column">
-              <OperateButton onClick={() => handleClick('Ethereum')}>
-                Operar
-              </OperateButton>
-            </td>
-          </tr>
-          <tr>
-            <td className="wallet-cell">Cardano</td>
-            <td className="wallet-cell">50432</td>
-            <td className="wallet-cell">4.240000</td>
-            <td className="operate-column">
-              <OperateButton onClick={() => setModalShow(true)}>
-                Operar
-              </OperateButton>
-            </td>
-          </tr>
+          {COINS.map((coin) => {
+            return (
+              <tr>
+                <td className="wallet-cell">{coin.name}</td>
+                <td className="wallet-cell">{coin.price}</td>
+                <td className="wallet-cell">{coin.amount}</td>
+                <td className="operate-column">
+                  <OperateButton onClick={() => handleClick(coin.name)}>
+                    Operar
+                  </OperateButton>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </MainContainer>
