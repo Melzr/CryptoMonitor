@@ -1,6 +1,10 @@
-import { DataManager, DataRegister } from "./dataManager";
+import { DataManager } from "./dataManager";
 import { VariableManager } from "./variableManager";
 import { Wallet } from "./wallet";
+
+export const ValidCallNames =
+    ['==', 'DISTINCT', ">", "<", ">=", "<=", "NEGATE", "-", "/", "+", "*",
+    "MIN", "MAX", "AVERAGE", "STDDEV", "FIRST", "LAST", "NOT", "AND", "OR"]
 
 export type ValueType
     = { type: 'CONSTANT'; value:  number | boolean | string  }
