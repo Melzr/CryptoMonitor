@@ -21,7 +21,7 @@ const describeValue = (value: ValueType, spacing: number) => {
     case "CALL":
       return (
         <div>
-          <div>{"Name: " + value.name}</div>;
+          <div>{"Name: " + value.name}</div>
           <div>
             {"Arguments: { "}
             {value.arguments.map((argument) => (
