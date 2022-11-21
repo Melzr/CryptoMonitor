@@ -6,9 +6,9 @@ import {
   WalletModalInput,
 } from "./styled";
 import Form from "react-bootstrap/Form";
-import { useSelector } from "react-redux";
 import { selectCurrentCoin } from "../../state/selectors/walletSelector";
 import { GenericButton } from "../Button";
+import { useAppSelector } from "../../state";
 
 type Props = {
   onHide: () => void;
@@ -16,7 +16,7 @@ type Props = {
 };
 
 export const WalletModal = (props: Props) => {
-  const selectedCoin = useSelector(selectCurrentCoin);
+  const selectedCoin = useAppSelector(selectCurrentCoin);
 
   return (
     <Modal show={props.show} centered onHide={props.onHide}>

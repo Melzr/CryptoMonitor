@@ -1,4 +1,4 @@
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
 import { Coin } from "../../interfaces/interfaces";
 import { AppAction } from "../AppAction";
 
@@ -14,7 +14,7 @@ const initialState = {
   },
 }
 
-const walletReducer: Reducer<WalletState, AppAction> = (state = initialState, action) => {
+const walletReducer: Reducer<WalletState, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case 'SELECT_COIN':
       return {

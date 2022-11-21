@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { setSelectedRule } from "../../state/actions";
-import { useDispatch } from "react-redux";
-import { selectCurrentRule } from "../../state/selectors/rulesSelector";
+import React, { useEffect, useState } from "react";
+import {  setSelectedRule } from "../../state/actions";
+
+import { selectCurrentRule, selectRules } from "../../state/selectors/rulesSelector";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { HiPencil } from "react-icons/hi";
 import {
@@ -18,9 +18,11 @@ import { ConfirmationModal } from "../../components/ConfirmationModal";
 import { EditRuleModal } from "../../components/EditModal";
 
 import { RuleInfo } from "./RuleInfo";
+import { getRules } from "../../state/actions/rulesAction";
+import { useAppDispatch, useAppSelector } from "../../state";
 
 export const Rules = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -28,7 +30,13 @@ export const Rules = () => {
     dispatch(setSelectedRule(rule));
   };
 
-  const selectedRule = useSelector(selectCurrentRule);
+  const selectedRule = useAppSelector(selectCurrentRule);
+  const rules = useAppSelector(selectRules);
+
+  useEffect(() => {
+    dispatch(getRules());
+    }, []);
+  
 
   return (
     <MainContainer>
@@ -44,7 +52,7 @@ export const Rules = () => {
         onHide={() => setShowEditModal(false)}
       />
       <ListContainer>
-        {RULES.map((rule) => {
+        {rules.map((rule) => {
           return (
             <Option
               isSelected={selectedRule ? selectedRule.name == rule.name : false}

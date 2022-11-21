@@ -2,11 +2,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { EditInput, Text } from "./styled";
 import Form from "react-bootstrap/Form";
-import { useSelector } from "react-redux";
 import { selectCurrentCoin } from "../../state/selectors/walletSelector";
 import { GenericButton } from "../Button";
 import { selectCurrentRule } from "../../state/selectors/rulesSelector";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../../state";
 
 type Props = {
   onHide: () => void;
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const EditRuleModal = (props: Props) => {
-  const selectedRule = useSelector(selectCurrentRule);
+  const selectedRule = useAppSelector(selectCurrentRule);
   const [rule, setRule] = useState(JSON.stringify(selectedRule, null, "\t"));
   
   useEffect(() => {
