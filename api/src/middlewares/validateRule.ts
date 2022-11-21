@@ -6,7 +6,7 @@ export const validateRule = (req: Request, res: Response, next: NextFunction) =>
 
     if (!rule) {
         return res.status(400).json({
-            msg: "rule is required",
+            error: "rule is required",
         });
     }
 

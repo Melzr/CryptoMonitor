@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import AuthRouter from '../routes/auth';
 import RulesRouter from '../routes/rules';
+import VariableRouter from '../routes/variable';
 import WalletRouter from '../routes/wallet';
 import UserRouter from '../routes/user';
 import { DataManager } from '../service/dataManager';
@@ -14,6 +15,7 @@ export class Server {
     paths: {
         auth: string;
         rules: string;
+        variable: string;
         wallet: string;
         user: string;
     }
@@ -31,6 +33,7 @@ export class Server {
         this.paths = {
             auth: '/api/token',
             rules: '/api/rules',
+            variable: '/api/variable',
             wallet: '/api/wallet',
             user: '/api/user'
         }
@@ -46,6 +49,7 @@ export class Server {
     routes() {  
         this.app.use( this.paths.auth, AuthRouter() );
         this.app.use( this.paths.rules, RulesRouter() );
+        this.app.use( this.paths.variable, VariableRouter() );
         this.app.use( this.paths.wallet, WalletRouter() );
         this.app.use( this.paths.user, UserRouter() );
     }

@@ -229,6 +229,99 @@
 			]
 		},
 		{
+			"name": "Variable",
+			"item": [
+				{
+					"name": "Get variables",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/variable",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"variable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post variable",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ten\",\r\n    \"value\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/variable",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"variable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete variable",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/variable/:name",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"variable",
+								":name"
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "new variable"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Post user",
 			"request": {
 				"method": "POST",
@@ -274,7 +367,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"admin123\"\r\n\r\n}",
+					"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"admin123\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
