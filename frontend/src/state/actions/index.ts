@@ -1,3 +1,4 @@
 import { setSelectedCoin } from './walletAction';
+import { setSelectedRule } from './rulesAction';
 
-export {setSelectedCoin };
+export {setSelectedCoin, setSelectedRule };
