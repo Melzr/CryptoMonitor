@@ -1,3 +1,5 @@
+import { buy, getAllBalance, getBalance, sell } from "./apiListener";
+
 export class Wallet {
     private static _instance: Wallet;
     private _balance: { [key: string]: number };
@@ -10,42 +12,20 @@ export class Wallet {
         return this._instance || (this._instance = new this());
     }
 
-    public buyAmount(symbol: string, amount: number) {
-        if (amount < 0) {
-            throw new Error("Amount must be positive");
-        }
-        if (!this._balance.hasOwnProperty(symbol)) {
-            this._balance[symbol] = 0;
-        }
-        this._balance[symbol] += amount;
+    public async buyAmount(symbol: string, amount: number) {
+        return buy(symbol, amount);
     }
 
     public sellAmount(symbol: string, amount: number) {
-        if (amount < 0) {
-            throw new Error("Amount must be positive");
-        }
-
-        if (!this._balance.hasOwnProperty(symbol)) {
-            throw new Error("Wallet has no balance for symbol " + symbol);
-        }
-
-        if (amount > this._balance[symbol]) {
-            throw new Error("Amount must be lower than balance");
-        }
-
-        this._balance[symbol] -= amount;
+        return sell(symbol, amount);
     }
 
-    public getBalance(symbol: string): number {
-        if (!this._balance.hasOwnProperty(symbol)) {
-            return 0;
-        }
-
-        return this._balance[symbol];
+    public getBalance(symbol: string): Promise<number> {
+        return getBalance(symbol);
     }
 
-    public getTotalBalance(): { [key: string]: number } {
-        return this._balance;
+    public async getTotalBalance(): Promise<[{ symbol: string; amount: number }]> {
+        return getAllBalance();
     }
 
     reset() {

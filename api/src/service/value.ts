@@ -15,18 +15,18 @@ export type ValueType
 
 export class Value {
 
-    static parse(value: ValueType): number | boolean | string | number[] {
+    static async parse(value: ValueType): Promise<number | boolean | string | number[]> {
         switch (value.type) {
             case 'CONSTANT':
                 return value.value;
             case 'VARIABLE':
                 return VariableManager.Instance.getVariable(value.name);
             case 'WALLET':
-                return Wallet.Instance.getBalance(value.symbol);
+                return await Wallet.Instance.getBalance(value.symbol);
             case 'DATA':
                 let data = DataManager.Instance.getData(value.symbol, value.from, value.until);
                 if (data.length === 0) {
-                    return value.default.map(value => Value.parseAsNumber(Value.parse(value)));
+                    return await Promise.all(value.default.map(async (value) => Value.parseAsNumber(await Value.parse(value))));
                 }
                 return data;
             case 'CALL':
@@ -46,7 +46,7 @@ export class Value {
         return 0;
     }
 
-    static parseCall(name: String, args: ValueType[]): number | boolean | string {
+    static async parseCall(name: String, args: ValueType[]): Promise<number | boolean | string> {
         args = args.flat();
         switch (name) {
             case '==':
@@ -68,23 +68,26 @@ export class Value {
                 if (args.length !== 1) {
                     throw new Error('Invalid number of arguments');
                 }
-                return Value.parseAsNumber(Value.parse(args[0])) * -1;
+                return Value.parseAsNumber(await Value.parse(args[0])) * -1;
             case '-':
                 if (args.length !== 2) {
                     throw new Error('Invalid number of arguments');
                 }
-                return Value.parseAsNumber(Value.parse(args[0])) - Value.parseAsNumber(Value.parse(args[1]));
+                return Value.parseAsNumber(await Value.parse(args[0])) - Value.parseAsNumber(await Value.parse(args[1]));
             case '/':
                 if (args.length !== 2) {
                     throw new Error('Invalid number of arguments');
                 }
-                return Value.parseAsNumber(Value.parse(args[0])) / Value.parseAsNumber(Value.parse(args[1]));
+                return Value.parseAsNumber(await Value.parse(args[0])) / Value.parseAsNumber(await Value.parse(args[1]));
             case '+':
-                return args.reduce((acc, arg) => acc + Value.parseAsNumber(Value.parse(arg)), 0);
+                const maped_plus = await Promise.all(args.map(async (arg) => Value.parseAsNumber(await Value.parse(arg))));
+                return maped_plus.reduce((a, b) => a + b, 0);
             case '*':
-                return args.reduce((acc, arg) => acc * Value.parseAsNumber(Value.parse(arg)), 1);
+                const maped_mul = await Promise.all(args.map(async (arg) => Value.parseAsNumber(await Value.parse(arg))));
+                return maped_mul.reduce((a, b) => a * b, 1);
             case 'AND':
-                return args.every(arg => Value.parse(arg) === true);
+                const maped_and = await Promise.all(args.map(async (arg) => Value.parse(arg)));
+                return maped_and.every((arg) => arg);
             case 'NOT':
                 if (args.length !== 1) {
                     throw new Error('Invalid number of arguments');
@@ -93,18 +96,28 @@ export class Value {
             case 'OR':
                 return args.some(arg => Value.parse(arg));
             case 'MIN':
-                return Math.min(...args.map(arg => Value.parseAsNumber(Value.parse(arg))));
+                const maped_min = await Promise.all(args.map(async (arg) => Value.parseAsNumber(await Value.parse(arg))));
+                return Math.min(...maped_min);
             case 'MAX':
-                return Math.max(...args.map(arg => Value.parseAsNumber(Value.parse(arg))));
+                const maped_max = await Promise.all(args.map(async (arg) => Value.parseAsNumber(await Value.parse(arg))));
+                return Math.max(...maped_max);
             case 'FIRST':
-                return Value.parseAsNumber(Value.parse(args[0]));
+                return Value.parseAsNumber(await Value.parse(args[0]));
             case 'LAST':
-                  return Value.parseAsNumber(Value.parse(args[args.length - 1]));
+                  return Value.parseAsNumber(await Value.parse(args[args.length - 1]));
             case 'AVERAGE':
-                return args.reduce((acc, arg) => acc + Value.parseAsNumber(Value.parse(arg)), 0) / args.length;
+                const maped_avg = await Promise.all(args.map(async (arg) => Value.parseAsNumber(await Value.parse(arg))));
+                return maped_avg.reduce((a, b) => a + b, 0) / maped_avg.length;
             case 'STDDEV':
-                let avg = args.reduce((acc, arg) => acc + Value.parseAsNumber(Value.parse(arg)), 0) / args.length;
-                return Math.sqrt(args.reduce((acc, arg) => acc + Math.pow(Value.parseAsNumber(Value.parse(arg)) - avg, 2), 0) / args.length);
+                const maped_std = await Promise.all(args.map(async (arg) => Value.parseAsNumber(await Value.parse(arg))));
+                const avg = maped_std.reduce((a, b) => a + b, 0) / maped_std.length;
+                const squareDiffs = maped_std.map((value) => {
+                    const diff = value - avg;
+                    const sqrDiff = diff * diff;
+                    return sqrDiff;
+                });
+                const avgSquareDiff = squareDiffs.reduce((a, b) => a + b, 0) / squareDiffs.length;
+                return Math.sqrt(avgSquareDiff);
             default:
                 throw new Error('Invalid call name');
         }

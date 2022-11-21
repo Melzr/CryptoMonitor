@@ -1,9 +1,9 @@
 import { WebSocket } from "ws";
 import crypto from "crypto";
-import axios from "axios";
+import axios, { Axios, AxiosError } from "axios";
 
-const apiKey = process.env.API_KEY || "";
-const apiSecret = process.env.API_SECRET || "";
+const apiSecret = 'hgJJM0BJ3JeMpr5FPmJDL3r88nn0wMNEA7kQYvQ4nLJzug1YMmy4E6QZb0y6pow9';
+const apiKey = 'YA0C7YXHvOpwvjD1s559rI3FLZN6RDYvo45sQ7gxrkbcYu0DZF2VlddYKuf0Mjmh';
 
 class ApiListener {
     private _webSocket: WebSocket | null = null;
@@ -63,8 +63,18 @@ const buy = async (symbol: string, quantity: number) => {
         'X-MBX-APIKEY': apiKey
         },
     }
-    let response = await axios(config);
-    return response.data;
+    try {
+        let response = await axios(config);
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError<{ msg: string }>
+        let msg = err.response?.data.msg;
+        if (msg) {
+            throw new Error(msg);
+        } else {
+            throw error;
+        }
+    }
 }
 
 const sell = async (symbol: string, quantity: number) => {
@@ -77,11 +87,27 @@ const sell = async (symbol: string, quantity: number) => {
         'X-MBX-APIKEY': apiKey
         },
     }
-    let response = await axios(config);
-    return response.data;
+    try {
+        let response = await axios(config);
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError<{ msg: string }>
+        let msg = err.response?.data.msg;
+        if (msg) {
+            throw new Error(msg);
+        } else {
+            throw error;
+        }
+    }
 }
 
 const getBalance = async (symbol: string) => {
+    const allBalance = await getAllBalance();
+    const balance = allBalance.find((balance) => balance.symbol === symbol);
+    return balance ? balance.amount : 0;
+}
+
+const getAllBalance = async (): Promise<[{symbol: string, amount: number}]> => {
     let timestamp = new Date().getTime();
     let query_string = `timestamp=${timestamp}`;
     let config = {
@@ -91,28 +117,46 @@ const getBalance = async (symbol: string) => {
         'X-MBX-APIKEY': apiKey
         },
     }
-    let response = await axios(config);
-    const balance = response.data.balances.find((balance: { asset: string }) => balance.asset === symbol);
-    return balance ? balance.free : 0;
-}
-
-const getAllBalance = async () => {
-    let timestamp = new Date().getTime();
-    let query_string = `timestamp=${timestamp}`;
-    let config = {
-        method: 'get',
-        url: 'https://testnet.binance.vision/api/v3/account?' + query_string + '&signature=' + _signature(query_string),
-        headers: {
-        'X-MBX-APIKEY': apiKey
-        },
+    try {
+        let response = await axios(config);
+        return response.data.balances.map((balance: { asset: string, free: string}) => {
+            return {
+                symbol: balance.asset,
+                amount: parseFloat(balance.free)
+            };
+        });
+    } catch (error) {
+        const err = error as AxiosError<{ msg: string }>
+        let msg = err.response?.data.msg;
+        if (msg) {
+            throw new Error(msg);
+        } else {
+            throw error;
+        }
     }
-    let response = await axios(config);
-    return response.data.balances.map((balance: { asset: string, free: number }) => {
-        return {
-        symbol: balance.asset,
-        amount: balance.free
-        };
-    });
 }
 
-export { ApiListener, buy, sell, getBalance, getAllBalance };
+const getSymbolValue = async (symbol: string): Promise<number> => {
+    let query_string = `symbol=${symbol}`;
+    let config = {
+      method: 'get',
+      url: 'https://testnet.binance.vision/api/v3/ticker/price?' + query_string,
+      headers: {
+        'X-MBX-APIKEY': apiKey
+      },
+    }
+    try {
+        let response = await axios(config);
+        return parseFloat(response.data.price);
+    } catch (error) {
+        const err = error as AxiosError<{ msg: string }>
+        let msg = err.response?.data.msg;
+        if (msg) {
+            throw new Error(msg);
+        } else {
+            throw error;
+        }
+    }
+  };
+
+export { ApiListener, buy, sell, getBalance, getAllBalance, getSymbolValue };

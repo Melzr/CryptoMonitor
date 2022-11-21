@@ -34,7 +34,7 @@ export class RuleManager {
         delete this._rules[name];
     }
 
-    public executeRules(symbol: string) {
+    public async executeRules(symbol: string) {
         let actualValue = DataManager.Instance.getLastValue(symbol);
         console.log("Ejecutando reglas para " + symbol + " con valor " + actualValue);
         if (this._operable_values[symbol] && actualValue && actualValue < this._operable_values[symbol]){
@@ -44,7 +44,7 @@ export class RuleManager {
             const ruleObj = this._rules[nameRule];
             const condition = ruleObj.condition;
             const actions = ruleObj.action;
-            if (Value.parse(condition) === true) {
+            if (await Value.parse(condition) === true) {
                 for(const action in actions) {
                     let a = actions[action];
                     if(a.type === 'SET_VARIABLE'){
