@@ -13,9 +13,9 @@ class ApiListener {
     ) {
         const ws = new WebSocket("wss://testnet.binance.vision/ws");
         ws.on("open", function open() {
-        console.log("Conectado con Binance WebSocket API");
-        ws.send(`{"method":"SUBSCRIBE","params":["btcusdt@trade"],"id":1}`); //testing
-        ws.send(`{"method":"SUBSCRIBE","params":["ethusdt@trade"],"id":1}`); //testing
+            console.log("Conectado con Binance WebSocket API");
+            ws.send(`{"method":"SUBSCRIBE","params":["btcusdt@trade"],"id":1}`); //testing
+            ws.send(`{"method":"SUBSCRIBE","params":["ethusdt@trade"],"id":1}`); //testing
         });
 
         ws.on("message", (data) => {
@@ -101,7 +101,7 @@ const sell = async (symbol: string, quantity: number) => {
     }
 }
 
-const getBalance = async (symbol: string) => {
+const getSymbolBalance = async (symbol: string) => {
     const allBalance = await getAllBalance();
     const balance = allBalance.find((balance) => balance.symbol === symbol);
     return balance ? balance.amount : 0;
@@ -159,4 +159,4 @@ const getSymbolValue = async (symbol: string): Promise<number> => {
     }
   };
 
-export { ApiListener, buy, sell, getBalance, getAllBalance, getSymbolValue };
+export { ApiListener, buy, sell, getSymbolBalance, getAllBalance, getSymbolValue };

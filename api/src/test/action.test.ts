@@ -1,8 +1,8 @@
 import { Value, ValueType } from '../service/value';
 import { VariableManager } from '../service/variableManager';
-import { Wallet } from '../service/wallet';
 import assert from "assert";
 import { Action } from '../service/action';
+import { getBalance } from '../service/wallet';
 
 describe('action', function () {
     it('should be able to set a variable', function () {
@@ -50,7 +50,7 @@ describe('action', function () {
                 value: 12
             }
         });
-        assert.deepEqual(Wallet.Instance.getBalance('BTC'), 12);
+        assert.deepEqual(getBalance('BTC'), 12);
     });
 
     it('should be able to sell', function () {
@@ -62,7 +62,7 @@ describe('action', function () {
                 value: 12
             }
         });
-        assert.deepEqual(Wallet.Instance.getBalance('BTC'), 0);
+        assert.deepEqual(getBalance('BTC'), 0);
     }
     );
 
@@ -83,7 +83,7 @@ describe('action', function () {
                 value: 12
             }
         });
-        assert.deepEqual(Wallet.Instance.getBalance('ADA'), 0);
+        assert.deepEqual(getBalance('ADA'), 0);
     });
 
     it('should not be able to buy negative amount', function () {
@@ -98,7 +98,7 @@ describe('action', function () {
             }),
             Error
         );
-        assert.deepEqual(Wallet.Instance.getBalance('TDD'), 0);
+        assert.deepEqual(getBalance('TDD'), 0);
     });
 
     it('should not be able to sell negative amount', function () {
@@ -113,7 +113,7 @@ describe('action', function () {
             }),
             Error
         );
-        assert.deepEqual(Wallet.Instance.getBalance('DOGE'), 0);
+        assert.deepEqual(getBalance('DOGE'), 0);
     });
 });
 

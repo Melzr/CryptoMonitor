@@ -1,6 +1,6 @@
 import { DataManager } from "./dataManager";
 import { VariableManager } from "./variableManager";
-import { Wallet } from "./wallet";
+import { getBalance } from "./wallet";
 
 export const ValidCallNames =
     ['==', 'DISTINCT', ">", "<", ">=", "<=", "NEGATE", "-", "/", "+", "*",
@@ -22,7 +22,7 @@ export class Value {
             case 'VARIABLE':
                 return VariableManager.Instance.getVariable(value.name);
             case 'WALLET':
-                return await Wallet.Instance.getBalance(value.symbol);
+                return await getBalance(value.symbol);
             case 'DATA':
                 let data = DataManager.Instance.getData(value.symbol, value.from, value.until);
                 if (data.length === 0) {

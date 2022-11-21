@@ -1,7 +1,7 @@
 import { describe, it } from "mocha";
 import assert from "assert";
-import { Wallet } from "../service/wallet";
 import { RuleManager } from "../service/ruleManager";
+import { getBalance } from "../service/wallet";
 
 describe('RuleManager', function () {
     it('should be not null after initialize it', function(){
@@ -56,7 +56,7 @@ describe('RuleManager', function () {
             }]
         });
         RuleManager.Instance.executeRules('TDD/USDT');
-        assert.deepEqual(Wallet.Instance.getBalance('TDD'), 12);
+        assert.deepEqual(getBalance('TDD'), 12);
     });
 
     it('shoul be able to execute a rule with a variable', function () {

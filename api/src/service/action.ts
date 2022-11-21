@@ -1,6 +1,6 @@
 import { Value, ValueType } from "./value";
 import { VariableManager } from "./variableManager";
-import { Wallet } from "./wallet";
+import { buyAmount, sellAmount } from "./wallet";
 
 export type ActionType
     = { type: 'BUY_MARKET' | 'SELL_MARKET'; symbol:  string; amount: ValueType }
@@ -19,10 +19,10 @@ export class Action {
                 VariableManager.Instance.setVariable(action.name, value);
                 break;
             case 'SELL_MARKET':
-                Wallet.Instance.sellAmount(action.symbol.split('/')[0], Value.parseAsNumber(await Value.parse(action.amount)));
+                sellAmount(action.symbol.split('/')[0], Value.parseAsNumber(await Value.parse(action.amount)));
                 break;
             case 'BUY_MARKET':
-                Wallet.Instance.buyAmount(action.symbol.split('/')[0], Value.parseAsNumber(await Value.parse(action.amount)));
+                buyAmount(action.symbol.split('/')[0], Value.parseAsNumber(await Value.parse(action.amount)));
                 break;
             default:
                 throw new Error('Invalid value type');

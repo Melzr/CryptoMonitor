@@ -4,7 +4,6 @@ import AuthRouter from '../routes/auth';
 import RulesRouter from '../routes/rules';
 import WalletRouter from '../routes/wallet';
 import UserRouter from '../routes/user';
-import { Wallet } from '../service/wallet';
 import { DataManager } from '../service/dataManager';
 import { RuleManager } from '../service/ruleManager';
 import { VariableManager } from '../service/variableManager';
@@ -18,7 +17,6 @@ export class Server {
         wallet: string;
         user: string;
     }
-    wallet: Wallet;
     dataManager: DataManager;
     ruleManager: RuleManager;
     variableManager: VariableManager;
@@ -26,7 +24,6 @@ export class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT || '8000';
-        this.wallet = Wallet.Instance;
         this.dataManager = DataManager.Instance;
         this.ruleManager = RuleManager.Instance;
         this.variableManager = VariableManager.Instance;
@@ -37,7 +34,6 @@ export class Server {
             wallet: '/api/wallet',
             user: '/api/user'
         }
-
         this.middlewares();
         this.routes();
     }
