@@ -4,14 +4,16 @@ import { AppAction } from "../AppAction";
 
 export type WalletState = {
   coin: Coin;
+  coins: Coin[];
 };
 
 const initialState = {
   coin:{
-    name: "",
+    symbol: "",
     amount: 0,
     price: 0,
   },
+  coins:[],
 }
 
 const walletReducer: Reducer<WalletState, AnyAction> = (state = initialState, action) => {
@@ -19,11 +21,16 @@ const walletReducer: Reducer<WalletState, AnyAction> = (state = initialState, ac
     case 'SELECT_COIN':
       return {
         coin: action.coin,
+        coins: state.coins,
+      };
+    case 'FETCH_COINS':
+      return {
+        coin: state.coin,
+        coins: action.coins,
       };
     default:
       return state;
   }
 }
-
 
 export default walletReducer;

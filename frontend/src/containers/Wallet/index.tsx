@@ -7,55 +7,63 @@ import { Console } from "console";
 import { useDispatch } from "react-redux";
 import { setSelectedCoin } from "../../state/actions";
 import { Coin } from "../../interfaces/interfaces";
+import { useAppDispatch, useAppSelector } from "../../state";
+import { selectCoins } from "../../state/selectors/walletSelector";
+import { getCoins } from "../../state/actions/walletAction";
 
 export const Wallet = () => {
 
   const COINS: Coin[] = [
     {
-      name: "BTC",
+      symbol: "BTC",
       price: 16500,
       amount:0.010200,
     },
     {
-      name: "ETH",
+      symbol: "ETH",
       price: 214412,
       amount:0.02142,
     },
     {
-      name: "BNB",
+      symbol: "BNB",
       price: 214412,
       amount: 0.1440020,
     },
     {
-      name: "CHZ",
+      symbol: "CHZ",
       price: 0.2441,
       amount:0.00,
     },
     {
-      name: "SOL",
+      symbol: "SOL",
       price: 12.81,
       amount:43,
     },
     {
-      name: "ADA",
+      symbol: "ADA",
       price: 0.3261,
       amount:0.00,
     },
     {
-      name: "DOT",
+      symbol: "DOT",
       price: 5.70,
       amount:0.00,
     },
   ];
 
   const [modalShow, setModalShow] = React.useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleClick = (coin: Coin) => {
     setModalShow(true);
     dispatch(setSelectedCoin(coin));
   }
 
+  const coins = useAppSelector(selectCoins);
+  console.log(coins);
+  useEffect(() => {
+    dispatch(getCoins());
+    }, []);
 
   return (
     <MainContainer>
@@ -73,17 +81,17 @@ export const Wallet = () => {
               Cotizacion
             </th>
             <th scope="col" className="wallet-header">
-              Balance
+              Amount
             </th>
             <th scope="col" className="operate-header"></th>
           </tr>
         </thead>
         <tbody>
-          {COINS.map((coin) => {
+          {coins.map((coin) => {
             return (
               <tr>
-                <td className="wallet-cell">{coin.name}</td>
-                <td className="wallet-cell">{coin.price}</td>
+                <td className="wallet-cell">{coin.symbol}</td>
+                <td className="wallet-cell">naue hace el endpoint</td>
                 <td className="wallet-cell">{coin.amount}</td>
                 <td className="operate-column">
                   <OperateButton onClick={() => handleClick(coin)}>

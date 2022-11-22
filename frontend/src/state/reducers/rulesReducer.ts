@@ -28,5 +28,6 @@ const initialState = {
     }
   }
 
+  
 
 export default rulesReducer;

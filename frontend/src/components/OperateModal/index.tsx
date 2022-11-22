@@ -21,12 +21,12 @@ export const WalletModal = (props: Props) => {
   return (
     <Modal show={props.show} centered onHide={props.onHide}>
       <Modal.Header closeButton closeVariant="white">
-        <Modal.Title>Operate {selectedCoin.name}</Modal.Title>
+        <Modal.Title>Operate {selectedCoin.symbol}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <TextContainer>
           <BodyText>Cotizacion:</BodyText>
-          <BodyText color="white">{selectedCoin.price}</BodyText>
+          <BodyText color="white">mel porfa el balance</BodyText>
         </TextContainer>
         <TextContainer>
           <BodyText>Balance:</BodyText>
