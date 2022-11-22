@@ -21,6 +21,9 @@ export const MainScreen = () => {
             <Nav.Link href="#rules" onClick={() => setSection(SECTIONS.rules)}>
               Rules
             </Nav.Link>
+            <Nav.Link href="#variables" onClick={() => setSection(SECTIONS.variables)}>
+              Variables
+            </Nav.Link>
           </Nav>
         </NavContainer>
       </Navbar>

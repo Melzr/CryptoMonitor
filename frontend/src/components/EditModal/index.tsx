@@ -6,17 +6,32 @@ import { selectCurrentCoin } from "../../state/selectors/walletSelector";
 import { GenericButton } from "../Button";
 import { selectCurrentRule } from "../../state/selectors/rulesSelector";
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../state";
+import { useAppDispatch, useAppSelector } from "../../state";
+import { editRule } from "../../state/actions/rulesAction";
 
 type Props = {
   onHide: () => void;
   show: boolean;
 };
 
+
+
 export const EditRuleModal = (props: Props) => {
   const selectedRule = useAppSelector(selectCurrentRule);
   const [rule, setRule] = useState(JSON.stringify(selectedRule, null, "\t"));
   
+  const dispatch = useAppDispatch();
+  const handleEditConfirm = () => {
+    console.log(rule);
+    dispatch(editRule(rule));
+    
+  } 
+
+  const handleClick = () => {
+    handleEditConfirm();
+    props.onHide();
+  }
+
   useEffect(() => {
     setRule(JSON.stringify(selectedRule, null, "\t"));
   }, [selectedRule]);
@@ -35,7 +50,7 @@ export const EditRuleModal = (props: Props) => {
       </Modal.Body>
       <Modal.Footer>
         <GenericButton onClick={props.onHide} text={"Cancel"} />
-        <GenericButton onClick={props.onHide} text={"Confirm"} />
+        <GenericButton onClick={handleClick} text={"Confirm"} />
       </Modal.Footer>
     </Modal>
   );

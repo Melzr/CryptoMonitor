@@ -2,6 +2,7 @@ import { Rule } from "../../interfaces/interfaces";
 import {baseURL} from "../../config";
 import { AppDispatch } from "..";
 import axios from 'axios';
+import { parse } from "path";
 
 export type RulesAction = {
     type: "SELECT_RULE";
@@ -10,10 +11,6 @@ export type RulesAction = {
   {
     type: "FETCH_RULES_FINISHED";
     rules: Rule[];
-  } |
-  {
-    type: "DELETE_RULE"
-    name: string; 
   }
 
   export const setSelectedRule = (rule: Rule): RulesAction => ({
@@ -30,6 +27,15 @@ export type RulesAction = {
     try {
       const requestURL: string = `${baseURL}/api/rules/${name}`;
       const result = await axios.delete(requestURL);
+      dispatch(getRules());
+    } catch (e) { /* do nothing */ console.log(e)}
+  };
+
+  export const editRule = (rule: string) => async (dispatch: AppDispatch) => {
+    const requestRule = JSON.parse(rule);
+    try {
+      const requestURL: string = `${baseURL}/api/rules/`;
+      const result = await axios.post(requestURL, {rule: requestRule});
       dispatch(getRules());
     } catch (e) { /* do nothing */ console.log(e)}
   };

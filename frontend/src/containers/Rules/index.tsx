@@ -22,7 +22,7 @@ import { ConfirmationModal } from "../../components/ConfirmationModal";
 import { EditRuleModal } from "../../components/EditModal";
 
 import { RuleInfo } from "./RuleInfo";
-import { deleteRule, getRules } from "../../state/actions/rulesAction";
+import { deleteRule, editRule, getRules } from "../../state/actions/rulesAction";
 import { useAppDispatch, useAppSelector } from "../../state";
 
 export const Rules = () => {
@@ -38,22 +38,23 @@ export const Rules = () => {
 
   const selectedRule = useAppSelector(selectCurrentRule);
   const rules = useAppSelector(selectRules);
-  console.log(rules);
+
   useEffect(() => {
     dispatch(getRules());
     }, []);
   
-  const handleConfirm = () => {
-    console.log("selected",selectedRule);
+  const handleDeleteConfirm = () => {
     if (selectedRule) {
       dispatch(deleteRule(selectedRule.name));
     }
-  } 
+  }
+
+  
 
   return (
     <MainContainer>
       <ConfirmationModal
-        onConfirm={() => handleConfirm()}
+        onConfirm={() => handleDeleteConfirm()}
         show={showDeleteModal}
         onHide={() => setShowDeleteModal(false)}
         title={"Delete rule"}
