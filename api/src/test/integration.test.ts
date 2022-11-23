@@ -88,6 +88,7 @@ describe("integration tests", function () {
     
     DataManager.Instance.insertData('BTCUSDT', 1, 1);
     await RuleManager.Instance.executeRules("BTCUSDT");
-    assert.deepEqual(await wallet.getBalance("BTC"), balance + 0.1);
+    const newBalance = await wallet.getBalance("BTC");
+    assert(newBalance >= balance + 0.099 && newBalance <= balance + 0.111);
   });
 });
