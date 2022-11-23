@@ -1,13 +1,21 @@
-export type User = {
+export type User =
+| {
     email: string;
+    type: "EMAIL";
     password: string;
     role: "ADMIN" | "USER";
-};
+}
+| {
+    email: string;
+    type: "GOOGLE";
+    role: "ADMIN" | "USER";
+}
 
 export class UserManager {
     private static _instance: UserManager;
     private _data: User[] =  [{
         email: 'admin@admin.com',
+        type: "EMAIL",
         password: 'admin123',
         role: 'ADMIN'
     }]
@@ -23,7 +31,18 @@ export class UserManager {
             throw new Error('User already exists');
         }
 
-        const user: User = { email, password, role: 'USER' };
+        const user: User = { email, password, role: 'USER', type: 'EMAIL' };
+        this._data.push(user);
+
+        return user;
+    }
+
+    public insertGoogleUser(email: string): User {
+        if (this._data.find((user) => user.email === email)) {
+            throw new Error('User already exists');
+        }
+
+        const user: User = { email, role: 'USER', type: 'GOOGLE' };
         this._data.push(user);
 
         return user;

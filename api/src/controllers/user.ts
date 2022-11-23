@@ -8,7 +8,7 @@ const userController = () => {
         const { email, password } = req.body;
         try {
             const user = userManager.insertUser(email, password);
-            res.json({ user });
+            res.json({ email: user.email, role: user.role });
         } catch (e) {
             res.status(400).json({ error: 'Email in use' });
         }

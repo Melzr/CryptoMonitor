@@ -10,6 +10,8 @@ const authRouter = () => {
         validateUser
     ], authController.login);
 
+    router.post('/google', authController.googleLogin);
+
     return router;
 }
 

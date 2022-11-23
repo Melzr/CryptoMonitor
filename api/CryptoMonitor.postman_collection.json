@@ -386,6 +386,31 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Google login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{googleToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/token/google",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"token",
+						"google"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
