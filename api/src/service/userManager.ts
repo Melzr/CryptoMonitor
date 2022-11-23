@@ -13,12 +13,13 @@ export type User =
 
 export class UserManager {
     private static _instance: UserManager;
-    private _data: User[] =  [{
-        email: 'admin@admin.com',
-        type: "EMAIL",
-        password: 'admin123',
-        role: 'ADMIN'
-    }]
+    private _data: User[] = 
+        process.env.ADMIN_EMAIL && process.env.ADMIN_PASSWORD ? [{
+            email: process.env.ADMIN_EMAIL,
+            password: process.env.ADMIN_PASSWORD,
+            type: "EMAIL",
+            role: 'ADMIN'
+        }] : [];
 
     private constructor() {}
 
