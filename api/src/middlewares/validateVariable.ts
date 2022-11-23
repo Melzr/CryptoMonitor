@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { VariableSchema } from "../validation/variable";
+import { VariableSchema } from "../schemas/variable";
 
 export const validateVariable = (req: Request, res: Response, next: NextFunction) => {
     const { error } = VariableSchema.validate(req['body']);

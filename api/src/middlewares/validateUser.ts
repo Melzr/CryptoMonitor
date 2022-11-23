@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { GoogleLoginSchema, PostUserSchema } from "../validation/user";
+import { PostUserSchema } from "../schemas/user";
 
 export const validateUser = (req: Request, res: Response, next: NextFunction) => {
     const { error } = PostUserSchema.validate(req['body']);

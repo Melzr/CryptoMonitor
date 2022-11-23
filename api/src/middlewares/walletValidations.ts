@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ChangeAmountSchema } from "../validation/wallet";
+import { ChangeAmountSchema } from "../schemas/wallet";
 
 export const validateAmount = (req: Request, res: Response, next: NextFunction) => {
     const { error } = ChangeAmountSchema.validate(req['body']);

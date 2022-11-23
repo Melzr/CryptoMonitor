@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { RuleSchema } from "../validation/rule";
+import { RuleSchema } from "../schemas/rule";
 
 export const validateRule = (req: Request, res: Response, next: NextFunction) => {
     const { rule } = req['body'];
