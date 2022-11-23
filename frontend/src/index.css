@@ -52,6 +52,8 @@ code {
   display: flex;
   justify-content: center;
   flex-direction: row;
+  
+  width: 200px;
 }
 
 .table .operate-header{
@@ -61,6 +63,8 @@ code {
   font-size: 20px;
   text-align: center;
   padding-bottom: 15px;
+  display: flex;
+  flex-direction: row;
 }
 
 .table .wallet-header{
@@ -77,6 +81,7 @@ code {
   font-size: 17px;
   padding-left: 20px;
 }
+
 
 .modal{
   color: #fecf43;

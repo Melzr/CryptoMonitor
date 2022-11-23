@@ -1,15 +1,19 @@
-import React, { useState } from "react";
-import { setSelectedRule } from "../../state/actions";
-import { useDispatch } from "react-redux";
-import { selectCurrentRule } from "../../state/selectors/rulesSelector";
+import React, { useEffect, useState } from "react";
+import {  setSelectedRule } from "../../state/actions";
+
+import { selectCurrentRule, selectRules } from "../../state/selectors/rulesSelector";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { HiPencil } from "react-icons/hi";
+import { MdAdd } from "react-icons/md";
 import {
   RuleButton,
   DescriptionContainer,
   ListContainer,
   MainContainer,
   Option,
+  NewRuleContainer,
+  NewRuleText,
+  NewRuleButton,
 } from "./styled";
 import { useSelector } from "react-redux";
 import { Rule } from "../../interfaces/interfaces";
@@ -18,22 +22,39 @@ import { ConfirmationModal } from "../../components/ConfirmationModal";
 import { EditRuleModal } from "../../components/EditModal";
 
 import { RuleInfo } from "./RuleInfo";
+import { deleteRule, editRule, getRules } from "../../state/actions/rulesAction";
+import { useAppDispatch, useAppSelector } from "../../state";
 
 export const Rules = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showNewRuleModal, setShowNewRuleModal] = useState(false);
 
   const handleClick = (rule: Rule) => {
     dispatch(setSelectedRule(rule));
   };
 
-  const selectedRule = useSelector(selectCurrentRule);
+  
+
+  let selectedRule = useAppSelector(selectCurrentRule);
+  const rules = useAppSelector(selectRules);
+
+  useEffect(() => {
+    dispatch(getRules());
+    }, []);
+  
+  const handleDeleteConfirm = () => {
+    if (selectedRule) {
+      dispatch(deleteRule(selectedRule.name)); 
+    }
+  }
+
 
   return (
     <MainContainer>
       <ConfirmationModal
-        onConfirm={() => console.log("aa")}
+        onConfirm={() => handleDeleteConfirm()}
         show={showDeleteModal}
         onHide={() => setShowDeleteModal(false)}
         title={"Delete rule"}
@@ -42,9 +63,23 @@ export const Rules = () => {
       <EditRuleModal
         show={showEditModal}
         onHide={() => setShowEditModal(false)}
+        isEdit={true}
+      />
+      <EditRuleModal
+        show={showNewRuleModal}
+        onHide={() => setShowNewRuleModal(false)}
+        isEdit={false}
       />
       <ListContainer>
-        {RULES.map((rule) => {
+        <NewRuleContainer>
+          <NewRuleButton onClick={() => setShowNewRuleModal(true)}>
+            <NewRuleText>
+              New rule
+              <MdAdd color="black" size={30}/>
+            </NewRuleText>
+          </NewRuleButton>
+        </NewRuleContainer>
+        {rules.map((rule) => {
           return (
             <Option
               isSelected={selectedRule ? selectedRule.name == rule.name : false}
