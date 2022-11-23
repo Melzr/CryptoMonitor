@@ -27,6 +27,23 @@ export const getCoins = () => async (dispatch: AppDispatch) => {
     const requestURL: string = baseURL + "/api/wallet/"
     const result = await axios.get(requestURL);
     dispatch(fetchCoins(result.data));
-    console.log(result.data);
+  } catch (e) { /* do nothing */ console.log(e)}
+};
+
+export const buyCoin = (symbol: String, amount: number) => async (dispatch: AppDispatch) => {
+  try {
+    const requestURL: string = `${baseURL}/api/wallet/buy`;
+    const requestCoin = { "symbol": symbol, "amount" : amount };
+    const result = await axios.post(requestURL, requestCoin);
+    dispatch(getCoins());
+  } catch (e) { /* do nothing */ console.log(e)}
+};
+
+export const sellCoin = (symbol: String, amount: number) => async (dispatch: AppDispatch) => {
+  try {
+    const requestURL: string = `${baseURL}/api/wallet/sell`;
+    const requestCoin = { "symbol": symbol, "amount" : amount };
+    const result = await axios.post(requestURL,  requestCoin);
+    dispatch(getCoins());
   } catch (e) { /* do nothing */ console.log(e)}
 };
