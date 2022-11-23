@@ -17,7 +17,9 @@ export interface Rule {
     | { type: 'SET_VARIABLE'; name:  string; value: ValueType}
   
 export interface Coin {
-    name: string;
+    symbol: string;
     price: number;
     amount: number;
     }
+
+  

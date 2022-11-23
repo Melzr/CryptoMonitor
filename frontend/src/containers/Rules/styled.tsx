@@ -90,6 +90,41 @@ export const RuleButton = styled.button`
   }
 `;
 
+export const NewRuleContainer = styled.div`
+  border-color: #fecf43;
+  margin-bottom: 10px;
+  align-self: flex-start;
+  border-radius: 10px;
+  background-color: #fecf43;
+  justify-content: center;
+  align-items: center;
+  padding:0px;
+  align-content: center;
+`;
+
+export const NewRuleText = styled.p`
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0px;
+  margin: 0px;
+`;
+
+export const NewRuleButton = styled.button`
+  
+  border-radius: 10px;
+  background-color: #fecf43;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px;
+  align-content: center;
+  &:hover {
+    background-color: #c59400;
+  }
+`
+
+
 export const OperateButton = styled.button<ButtonProps>`
   width: 80px;
   height: 100%;
