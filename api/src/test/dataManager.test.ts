@@ -1,6 +1,6 @@
 import { describe, it } from "mocha";
 import assert from "assert";
-import { DataManager } from "../dataManager";
+import { DataManager } from "../service/dataManager";
 
 
 describe('dataManager', function () {

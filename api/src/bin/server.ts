@@ -1,20 +1,24 @@
 import express, { Express } from 'express';
 import cors from 'cors';
+import AuthRouter from '../routes/auth';
 import RulesRouter from '../routes/rules';
+import VariableRouter from '../routes/variable';
 import WalletRouter from '../routes/wallet';
-import { Wallet } from '../wallet';
-import { DataManager } from '../dataManager';
-import { RuleManager } from '../ruleManager';
-import { VariableManager } from '../variableManager';
+import UserRouter from '../routes/user';
+import { DataManager } from '../service/dataManager';
+import { RuleManager } from '../service/ruleManager';
+import { VariableManager } from '../service/variableManager';
 
 export class Server {
     app: Express;
     port: string;
     paths: {
+        auth: string;
         rules: string;
+        variable: string;
         wallet: string;
+        user: string;
     }
-    wallet: Wallet;
     dataManager: DataManager;
     ruleManager: RuleManager;
     variableManager: VariableManager;
@@ -22,16 +26,18 @@ export class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT || '8000';
-        this.wallet = Wallet.Instance;
         this.dataManager = DataManager.Instance;
         this.ruleManager = RuleManager.Instance;
         this.variableManager = VariableManager.Instance;
+        this.dataManager.startListening();
 
         this.paths = {
+            auth: '/api/token',
             rules: '/api/rules',
-            wallet: '/api/wallet'
+            variable: '/api/variable',
+            wallet: '/api/wallet',
+            user: '/api/user'
         }
-
         this.middlewares();
         this.routes();
     }
@@ -42,8 +48,11 @@ export class Server {
     }
 
     routes() {  
+        this.app.use( this.paths.auth, AuthRouter() );
         this.app.use( this.paths.rules, RulesRouter() );
+        this.app.use( this.paths.variable, VariableRouter() );
         this.app.use( this.paths.wallet, WalletRouter() );
+        this.app.use( this.paths.user, UserRouter() );
     }
 
     listen() {

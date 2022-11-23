@@ -13,7 +13,13 @@
 					"name": "Get balance",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{url}}/api/wallet",
 							"host": [
@@ -31,7 +37,13 @@
 					"name": "Get value",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{url}}/api/wallet/value/:symbol",
 							"host": [
@@ -46,7 +58,7 @@
 							"variable": [
 								{
 									"key": "symbol",
-									"value": null
+									"value": "BTC"
 								}
 							]
 						}
@@ -57,7 +69,22 @@
 					"name": "Buy amount",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"symbol\": \"BTC\",\r\n    \"amount\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{url}}/api/wallet/buy",
 							"host": [
@@ -76,7 +103,13 @@
 					"name": "Sell amount",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"symbol\": \"BTC\",\r\n    \"amount\": 1\r\n}",
@@ -109,7 +142,13 @@
 					"name": "Get rules",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{url}}/api/rules",
 							"host": [
@@ -127,7 +166,13 @@
 					"name": "Post rule",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"rule\": {\r\n        \"name\": \"Escape\",\r\n        \"condition\": {\r\n            \"type\": \"CALL\",\r\n            \"name\": \"<\",\r\n            \"arguments\": [\r\n                {\r\n                    \"type\": \"CALL\",\r\n                    \"name\": \"LAST\",\r\n                    \"arguments\": [{\r\n                        \"type\": \"DATA\",\r\n                        \"symbol\": \"BTC/USDT\",\r\n                        \"from\": 3600,\r\n                        \"until\": 0,\r\n                        \"default\": [{\r\n                            \"type\": \"VARIABLE\",\r\n                            \"name\": \"LIMIT_VALUE_BTC/USDT\"\r\n                        }]\r\n                    }]\r\n                },\r\n                {\r\n                    \"type\": \"VARIABLE\",\r\n                    \"name\": \"LIMIT_VALUE_BTC/USDT\"\r\n                }\r\n            ]\r\n        },\r\n        \"action\": [{\r\n            \"type\": \"SELL_MARKET\",\r\n            \"symbol\": \"BTC/USDT\",\r\n            \"amount\": {\r\n                \"type\": \"WALLET\",\r\n                \"symbol\": \"BTC\"\r\n            }\r\n        }]\r\n    }\r\n}",
@@ -154,7 +199,13 @@
 					"name": "Delete rule",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{url}}/api/rules/:name",
 							"host": [
@@ -176,6 +227,190 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Variable",
+			"item": [
+				{
+					"name": "Get variables",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/variable",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"variable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post variable",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ten\",\r\n    \"value\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/variable",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"variable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete variable",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/variable/:name",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"variable",
+								":name"
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "new variable"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token\", data.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"admin123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/token",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Google login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{googleToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/token/google",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"token",
+						"google"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

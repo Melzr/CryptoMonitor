@@ -17,39 +17,20 @@ type Props = {
 
 
 export const NewCoinModal = (props: Props) => {
-  const selectedRule = useAppSelector(selectCurrentRule);
-  const [rule, setRule] = useState(JSON.stringify(selectedRule, null, "\t"));
-  
-  const dispatch = useAppDispatch();
-  const handleEditConfirm = () => {
-    console.log(rule);
-    dispatch(editRule(rule));
-    
-  } 
 
   const handleClick = () => {
-    handleEditConfirm();
     props.onHide();
   }
-
-  useEffect(() => {
-    setRule(JSON.stringify(selectedRule, null, "\t"));
-  }, [selectedRule]);
 
   return (
     <Modal show={props.show} centered onHide={props.onHide}>
       <Modal.Header closeButton closeVariant="white">
         <Modal.Title>
-            a
+          Buy coin
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-
-          <EditInput
-            rows={10}
-            onChange={(e) => setRule(e.target.value)}
-          />
-
+          
       </Modal.Body>
       <Modal.Footer>
         <GenericButton onClick={props.onHide} text={"Cancel"} />

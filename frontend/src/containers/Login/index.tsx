@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import GOOGLE_LOGO from "../../images/google-icon.png";
+import { GoogleLogin } from '@react-oauth/google';
+import { googleLogout } from '@react-oauth/google';
 import { LoginContainer, MainContainer, LoginButtonContainer, GoogleImage, GoogleButtonContainer, ButtonsContainer } from "./styled";
 
 export const Login = () => {
@@ -35,10 +37,22 @@ export const Login = () => {
               </Button>
             </LoginButtonContainer>
             <GoogleButtonContainer>
-              <Button className="google-login-button" variant="dark" type="submit">
+              {/* <Button
+                className="google-login-button"
+                variant="dark"
+                type="submit"
+                onClick={() => googleLogin()}
+              >
                 <GoogleImage src={GOOGLE_LOGO} alt="google-logo" />
                 Log in with Google
-              </Button>
+              </Button> */}
+              <GoogleLogin
+                theme="outline"
+                onSuccess={credentialResponse => {
+                  const googleToken = credentialResponse.credential;
+                  console.log(googleToken);
+                }}
+              />
             </GoogleButtonContainer>
           </ButtonsContainer>
         </Form>

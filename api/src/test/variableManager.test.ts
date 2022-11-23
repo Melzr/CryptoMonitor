@@ -1,6 +1,6 @@
 import { describe, it } from "mocha";
 import assert from "assert";
-import { VariableManager } from "../variableManager";
+import { VariableManager } from "../service/variableManager";
 
 describe('variableManager', function() {
     it('should be not null after initialize it', function(){
