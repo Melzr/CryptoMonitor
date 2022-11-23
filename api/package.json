@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npx ts-node index.ts",
     "startDev": "nodemon",
-    "test": "mocha -r ts-node/register src/test/*.test.ts"
+    "test": "mocha -r ts-node/register src/test/*.test.ts --timeout 50000"
   },
   "author": "75.10",
   "license": "ISC",

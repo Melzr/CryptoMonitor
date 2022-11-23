@@ -29,6 +29,10 @@ export class DataManager {
     });
   }
 
+  public startListening() {
+    this._apiListener.start();
+  }
+
   public static get Instance() {
     return this._instance || (this._instance = new this());
   }
@@ -43,6 +47,9 @@ export class DataManager {
   public getData(symbol: string, from: number, until: number): number[] {
     let actualTime = Math.floor(new Date().getTime() / 1000);
     let data = this._data[symbol];
+    if (!data) {
+      return [];
+    }
 
     return data
       .filter((item) => {

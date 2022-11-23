@@ -22,9 +22,9 @@ export class Value {
             case 'VARIABLE':
                 return VariableManager.Instance.getVariable(value.name);
             case 'WALLET':
-                return await getBalance(value.symbol);
+                return getBalance(value.symbol);
             case 'DATA':
-                let data = DataManager.Instance.getData(value.symbol, value.from, value.until);
+                let data = DataManager.Instance.getData(value.symbol.replace('/', ''), value.from, value.until);
                 if (data.length === 0) {
                     return await Promise.all(value.default.map(async (value) => Value.parseAsNumber(await Value.parse(value))));
                 }
@@ -50,20 +50,23 @@ export class Value {
         args = args.flat();
         switch (name) {
             case '==':
-                return args.every(arg => Value.parse(arg) === Value.parse(args[0]));
+                let equal_args = await Promise.all(args.map(async (value) => Value.parseAsNumber(await Value.parse(value))));
+                return equal_args.every((value, index, array) => value === array[0]);
             case 'DISTINCT':
                 let distinct = new Set(args.map(arg => Value.parse(arg)));
                 return distinct.size === args.length;
             case '>':
-                return args.every((arg, index) => index === 0 || Value.parse(args[index - 1]) > Value.parse(arg));
+                let greater_args = await Promise.all(args.map(async (value) => Value.parseAsNumber(await Value.parse(value))));
+                return greater_args.every((value, index, array) => index === 0 || array[index - 1] > value);
             case '>=':
-                return args.every((arg, index) => index === 0 || Value.parse(args[index - 1]) >= Value.parse(arg));
+                let greater_equal_args = await Promise.all(args.map(async (value) => Value.parseAsNumber(await Value.parse(value))));
+                return greater_equal_args.every((value, index, array) => index === 0 || array[index - 1] >= value);
             case '<':
-                for (let i = 0; i < args.length - 1; i++) {
-                }
-                return args.every((arg, index) => index === 0 || Value.parse(args[index - 1]) < Value.parse(arg));
+                let less_args = await Promise.all(args.map(async (value) => Value.parseAsNumber(await Value.parse(value))));
+                return less_args.every((value, index, array) => index === 0 || array[index - 1] < value);
             case '<=':
-                return args.every((arg, index) => index === 0 || Value.parse(args[index - 1]) <= Value.parse(arg));
+                let less_equal_args = await Promise.all(args.map(async (value) => Value.parseAsNumber(await Value.parse(value))));
+                return less_equal_args.every((value, index, array) => index === 0 || array[index - 1] <= value);
             case 'NEGATE':
                 if (args.length !== 1) {
                     throw new Error('Invalid number of arguments');

@@ -7,10 +7,15 @@ const apiKey = 'YA0C7YXHvOpwvjD1s559rI3FLZN6RDYvo45sQ7gxrkbcYu0DZF2VlddYKuf0Mjmh
 
 class ApiListener {
     private _webSocket: WebSocket | null = null;
+    private _onNewValue: (symbol: any, price: number, time: number) => void;
 
     public constructor(
         onNewValue: (symbol: any, price: number, time: number) => void
     ) {
+        this._onNewValue = onNewValue;
+    }
+
+    public start() {
         const ws = new WebSocket("wss://testnet.binance.vision/ws");
         ws.on("open", function open() {
             console.log("Conectado con Binance WebSocket API");
@@ -24,7 +29,7 @@ class ApiListener {
             if (trade.e !== "trade") return;
             const { s: symbol, p: price } = trade;
             const time = Math.floor(new Date().getTime() / 1000);
-            onNewValue(symbol, price, time);
+            this._onNewValue(symbol, price, time);
         }
         });
 
@@ -54,6 +59,9 @@ const _signature = (query_string: string) => {
 }
 
 const buy = async (symbol: string, quantity: number) => {
+    if (quantity < 0) {
+        throw new Error("La cantidad debe ser mayor a 0");
+    }
     let timestamp = new Date().getTime();
     let query_string = `quantity=${quantity}&symbol=${symbol}&side=BUY&type=MARKET&timestamp=${timestamp}`;
     let config = {
@@ -78,6 +86,9 @@ const buy = async (symbol: string, quantity: number) => {
 }
 
 const sell = async (symbol: string, quantity: number) => {
+    if (quantity < 0) {
+        throw new Error("La cantidad debe ser mayor a 0");
+    }
     let timestamp = new Date().getTime();
     let query_string = `quantity=${quantity}&symbol=${symbol}&side=SELL&type=MARKET&timestamp=${timestamp}`;
     let config = {
@@ -101,7 +112,7 @@ const sell = async (symbol: string, quantity: number) => {
     }
 }
 
-const getSymbolBalance = async (symbol: string) => {
+const getSymbolBalance = async (symbol: string): Promise<number> => {
     const allBalance = await getAllBalance();
     const balance = allBalance.find((balance) => balance.symbol === symbol);
     return balance ? balance.amount : 0;

@@ -5,8 +5,8 @@ import { Action } from '../service/action';
 import { getBalance } from '../service/wallet';
 
 describe('action', function () {
-    it('should be able to set a variable', function () {
-        Action.perform({
+    it('should be able to set a variable', async function () {
+        await Action.perform({
             type: 'SET_VARIABLE',
             name: 'ValorMinimoTDD',
             value: {
@@ -17,8 +17,8 @@ describe('action', function () {
         assert.deepEqual(VariableManager.Instance.getVariable('ValorMinimoTDD'), 12);
     });
 
-    it('should be able to save a boolean variable', function () {
-        Action.perform({
+    it('should be able to save a boolean variable', async function () {
+        await Action.perform({
             type: 'SET_VARIABLE',
             name: 'Booleano',
             value: {
@@ -29,8 +29,8 @@ describe('action', function () {
         assert.deepEqual(VariableManager.Instance.getVariable('Booleano'), true);
     });
 
-    it('show be able to save a string variable', function () {
-        Action.perform({
+    it('show be able to save a string variable', async function () {
+        await Action.perform({
             type: 'SET_VARIABLE',
             name: 'HelloWorld',
             value: {
@@ -41,56 +41,60 @@ describe('action', function () {
         assert.deepEqual(VariableManager.Instance.getVariable('HelloWorld'), 'Hello world');
     });
 
-    it('should be able to buy', function () {
-        Action.perform({
+    it('should be able to buy', async function () {
+        const balance = await getBalance('BTC');
+        await Action.perform({
             type: 'BUY_MARKET',
             symbol: 'BTC/USDT',
             amount: {
                 type: 'CONSTANT',
-                value: 12
+                value: 0.01
             }
         });
-        assert.deepEqual(getBalance('BTC'), 12);
+        assert.deepEqual(await getBalance('BTC'), balance + 0.01);
     });
 
-    it('should be able to sell', function () {
-        Action.perform({
+    it('should be able to sell', async function () {
+        const balance = await getBalance('BTC');
+        await Action.perform({
             type: 'SELL_MARKET',
             symbol: 'BTC/USDT',
             amount: {
                 type: 'CONSTANT',
-                value: 12
+                value: 0.01
             }
         });
-        assert.deepEqual(getBalance('BTC'), 0);
-    }
-    );
-
-    it('should be able to buy and sell', function () {
-        Action.perform({
-            type: 'BUY_MARKET',
-            symbol: 'ADA/USDT',
-            amount: {
-                type: 'CONSTANT',
-                value: 12
-            }
-        });
-        Action.perform({
-            type: 'SELL_MARKET',
-            symbol: 'ADA/USDT',
-            amount: {
-                type: 'CONSTANT',
-                value: 12
-            }
-        });
-        assert.deepEqual(getBalance('ADA'), 0);
+        
+        assert.deepEqual(await getBalance('BTC'), balance - 0.01);
     });
 
-    it('should not be able to buy negative amount', function () {
-        assert.throws(
+    it('should be able to buy and sell', async function () {
+        const balance = await getBalance('BNB');
+        await Action.perform({
+            type: 'BUY_MARKET',
+            symbol: 'BNB/USDT',
+            amount: {
+                type: 'CONSTANT',
+                value: 12
+            }
+        });
+        await Action.perform({
+            type: 'SELL_MARKET',
+            symbol: 'BNB/USDT',
+            amount: {
+                type: 'CONSTANT',
+                value: 12
+            }
+        });
+        assert.deepEqual(await getBalance('BNB'), balance);
+    });
+
+    it('should not be able to buy negative amount', async function () {
+        const balance = await getBalance('BNB');
+        assert.rejects(
             () => Action.perform({
                 type: 'BUY_MARKET',
-                symbol: 'TDD/USDT',
+                symbol: 'BNB/USDT',
                 amount: {
                     type: 'CONSTANT',
                     value: -1
@@ -98,12 +102,13 @@ describe('action', function () {
             }),
             Error
         );
-        assert.deepEqual(getBalance('TDD'), 0);
+        assert.deepEqual(await getBalance('BNB'), balance);
     });
 
-    it('should not be able to sell negative amount', function () {
-        assert.throws(
-            () => Action.perform({
+    it('should not be able to sell negative amount', async function () {
+        const balance = await getBalance('DOGE');
+        assert.rejects(
+            async () => await Action.perform({
                 type: 'SELL_MARKET',
                 symbol: 'DOGE/USDT',
                 amount: {
@@ -113,7 +118,7 @@ describe('action', function () {
             }),
             Error
         );
-        assert.deepEqual(getBalance('DOGE'), 0);
+        assert.deepEqual(await getBalance('DOGE'), balance);
     });
 });
 

@@ -48,9 +48,9 @@ export class RuleManager {
                 for(const action in actions) {
                     let a = actions[action];
                     if(a.type === 'SET_VARIABLE'){
-                        Action.perform(actions[action]);
+                        await Action.perform(actions[action]);
                     } else if (symbol === a.symbol.replace("/", "")) {
-                        Action.perform(actions[action]);
+                        await Action.perform(actions[action]);
                     }
                 }
             }

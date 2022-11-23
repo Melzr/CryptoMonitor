@@ -29,6 +29,7 @@ export class Server {
         this.dataManager = DataManager.Instance;
         this.ruleManager = RuleManager.Instance;
         this.variableManager = VariableManager.Instance;
+        this.dataManager.startListening();
 
         this.paths = {
             auth: '/api/token',
