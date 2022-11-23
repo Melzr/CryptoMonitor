@@ -29,6 +29,7 @@ export const Rules = () => {
   const dispatch = useAppDispatch();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showNewRuleModal, setShowNewRuleModal] = useState(false);
 
   const handleClick = (rule: Rule) => {
     dispatch(setSelectedRule(rule));
@@ -36,7 +37,7 @@ export const Rules = () => {
 
   
 
-  const selectedRule = useAppSelector(selectCurrentRule);
+  let selectedRule = useAppSelector(selectCurrentRule);
   const rules = useAppSelector(selectRules);
 
   useEffect(() => {
@@ -45,11 +46,10 @@ export const Rules = () => {
   
   const handleDeleteConfirm = () => {
     if (selectedRule) {
-      dispatch(deleteRule(selectedRule.name));
+      dispatch(deleteRule(selectedRule.name)); 
     }
   }
 
-  
 
   return (
     <MainContainer>
@@ -63,10 +63,16 @@ export const Rules = () => {
       <EditRuleModal
         show={showEditModal}
         onHide={() => setShowEditModal(false)}
+        isEdit={true}
+      />
+      <EditRuleModal
+        show={showNewRuleModal}
+        onHide={() => setShowNewRuleModal(false)}
+        isEdit={false}
       />
       <ListContainer>
         <NewRuleContainer>
-          <NewRuleButton>
+          <NewRuleButton onClick={() => setShowNewRuleModal(true)}>
             <NewRuleText>
               New rule
               <MdAdd color="black" size={30}/>

@@ -12,6 +12,7 @@ import { editRule } from "../../state/actions/rulesAction";
 type Props = {
   onHide: () => void;
   show: boolean;
+  isEdit: boolean;
 };
 
 
@@ -39,14 +40,27 @@ export const EditRuleModal = (props: Props) => {
   return (
     <Modal show={props.show} centered onHide={props.onHide}>
       <Modal.Header closeButton closeVariant="white">
-        <Modal.Title>Edit rule</Modal.Title>
+        <Modal.Title>
+          {props.isEdit ? (
+            <div>Edit rule</div>
+          ) : (
+            <div>Add rule</div>
+          )}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <EditInput
+        {props.isEdit ? (
+          <EditInput
           rows={10}
           value={rule}
           onChange={(e) => setRule(e.target.value)}
         />
+        ) : (
+          <EditInput
+            rows={10}
+            onChange={(e) => setRule(e.target.value)}
+          />
+        )}
       </Modal.Body>
       <Modal.Footer>
         <GenericButton onClick={props.onHide} text={"Cancel"} />

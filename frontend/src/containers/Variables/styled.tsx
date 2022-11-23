@@ -27,7 +27,20 @@ export const VariableTableHeading = styled.div`
     align-items: center;
 `
 export const VariableTableBody = styled.div`
-
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+    width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #6a6a6a;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #6a6a6a;
+    }
+    ::-webkit-scrollbar-corner {
+        background: rgba(0, 0, 0, 0);
+    }
     height: 100%;
 
 `
@@ -50,6 +63,7 @@ export const VariableContainer = styled.div`
     align-items: center;
     margin-top: 10px;
     margin-bottom: 10px;
+    
 `;
 
 export const VariableTitle = styled.h1`

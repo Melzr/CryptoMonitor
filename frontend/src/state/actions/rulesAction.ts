@@ -13,7 +13,7 @@ export type RulesAction = {
     rules: Rule[];
   }
 
-  export const setSelectedRule = (rule: Rule): RulesAction => ({
+  export const setSelectedRule = (rule: Rule ): RulesAction => ({
     type: "SELECT_RULE",
     rule,
   });

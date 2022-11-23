@@ -27,6 +27,47 @@ export const Variables = () => {
                             5
                         </VariableText>
                     </VariableContainer>
+                    <VariableContainer>
+                        <VariableText>
+                            Maximo:
+                        </VariableText>
+                        <VariableText>
+                            10
+                        </VariableText>
+                    </VariableContainer>
+                    <VariableContainer>
+                        <VariableText>
+                            Maximo:
+                        </VariableText>
+                        <VariableText>
+                            10
+                        </VariableText>
+                    </VariableContainer>
+                    <VariableContainer>
+                        <VariableText>
+                            Maximo:
+                        </VariableText>
+                        <VariableText>
+                            10
+                        </VariableText>
+                    </VariableContainer>
+                    <VariableContainer>
+                        <VariableText>
+                            Maximo:
+                        </VariableText>
+                        <VariableText>
+                            10
+                        </VariableText>
+                    </VariableContainer>
+                    <VariableContainer>
+                        <VariableText>
+                            Maximo:
+                        </VariableText>
+                        <VariableText>
+                            10
+                        </VariableText>
+                    </VariableContainer>
+                    
                 </VariableTableBody>
             </VariableTableContainer>
         </MainContainer>
