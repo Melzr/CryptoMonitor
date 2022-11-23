@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../state";
 import { selectCoins } from "../../state/selectors/walletSelector";
 import { getCoins } from "../../state/actions/walletAction";
 import { MdAdd } from "react-icons/md";
+import { NewCoinModal } from "../../components/NewCoinModal";
 
 export const Wallet = () => {
 
@@ -30,6 +31,10 @@ export const Wallet = () => {
 
   return (
     <MainContainer>
+      <NewCoinModal
+        show={showNewCoinModal}
+        onHide={() => setShowNewCoinModal(false)}
+      />
       <WalletModal
         show={modalShow}
         onHide={() => setModalShow(false)}
