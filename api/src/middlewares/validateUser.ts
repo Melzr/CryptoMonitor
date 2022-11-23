@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { PostUserSchema } from "../validation/user";
+import { GoogleLoginSchema, PostUserSchema } from "../validation/user";
 
 export const validateUser = (req: Request, res: Response, next: NextFunction) => {
     const { error } = PostUserSchema.validate(req['body']);
@@ -12,4 +12,3 @@ export const validateUser = (req: Request, res: Response, next: NextFunction) =>
 
     next();
 }
-

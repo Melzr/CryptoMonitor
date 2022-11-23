@@ -9,3 +9,7 @@ export const LoginSchema = Joi.object<{ email: string; password: string }>().key
     email: Joi.string().required().email(),
     password: Joi.string().required().min(6).max(100),
 });
+
+export const GoogleLoginSchema = Joi.object().keys({
+    idToken: Joi.string().required(),
+});
