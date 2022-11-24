@@ -1,18 +1,27 @@
 import { Router } from 'express';
 import RulesController from '../controllers/rules';
+import { validateAdminRole } from '../middlewares/validateAdminRole';
 import { validateRule } from '../middlewares/validateRule';
+import { validateToken } from '../middlewares/validateToken';
 
 const rulesRouter = () => {
     const router = Router();
     const rulesController = RulesController();
     
-    router.get('/', rulesController.getRules);
+    router.get('/', [
+        validateToken,
+    ], rulesController.getRules);
     
     router.post('/', [
-        validateRule
+        validateToken,
+        validateAdminRole,
+        validateRule,
     ], rulesController.addRule);
 
-    router.delete('/:name', rulesController.deleteRule);
+    router.delete('/:name', [
+        validateToken,
+        validateAdminRole,
+    ], rulesController.deleteRule);
 
     return router;
 }

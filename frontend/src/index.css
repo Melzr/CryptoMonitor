@@ -1,0 +1,129 @@
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  overflow: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.navbar-dark{
+  padding-left: 20px;
+}
+
+.navbar-dark .navbar-brand {
+  color: #fecf43;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.navbar-dark .nav-link{
+  color: #fecf43;
+  font-size: 22px;
+  margin-left: 20px;
+}
+
+.login {
+  font-size: 22px;
+  color: #fecf43;
+}
+
+.login-button {
+  font-size: 18px;
+  color: #fecf43;
+  width:100px;
+}
+
+.google-login-button{
+  font-size: 18px;
+  color: #fecf43;
+  width:330px;
+}
+
+.table .operate-column{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  
+  width: 200px;
+}
+
+.table .operate-header{
+  
+  color:#fecf43;
+  height: 60px;
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: row;
+}
+
+.table .wallet-header{
+  width: 520px; 
+  color: #fecf43;
+  font-size: 20px;
+  padding-left: 20px;
+  padding-bottom: 15px;
+}
+
+.table .wallet-cell{
+  padding-bottom: 10px;
+  padding-top: 15px;
+  font-size: 17px;
+  padding-left: 20px;
+}
+
+
+.modal{
+  color: #fecf43;
+  border: none;
+  text-align: center;
+  
+}
+
+.modal-header {
+  background-color: rgba(0, 0, 0, 0.90);
+  color: #fecf43;
+  border-color: #fecf43;
+  justify-content: center;
+}
+
+.modal-title{
+  font-size: 30px;
+}
+
+.modal-body{
+  background-color: rgba(0, 0, 0, 0.90);
+  border-color: #fecf43;
+}
+
+.modal-footer{
+  background-color: rgba(0, 0, 0, 0.90);
+  color: #fecf43;
+  border-color: #fecf43;
+  justify-content: center;
+  display: flex;
+}
+
+.btn-close{
+  color: white;
+  font-size: 20px;
+
+}
+
+.BuyModalHeader{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+

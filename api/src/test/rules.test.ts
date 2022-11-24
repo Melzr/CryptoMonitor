@@ -1,7 +1,8 @@
 import { describe, it } from "mocha";
 import assert from "assert";
-import { Wallet } from "../wallet";
-import { RuleManager } from "../ruleManager";
+import { RuleManager } from "../service/ruleManager";
+import { getBalance } from "../service/wallet";
+import { DataManager } from "../service/dataManager";
 
 describe('RuleManager', function () {
     it('should be not null after initialize it', function(){
@@ -40,23 +41,25 @@ describe('RuleManager', function () {
         });
     });
 
-    it('should be able to execute a rule', function () {
-        RuleManager.Instance.setRule('Comprar 12 TDD/USDT siempre', {
+    it('should be able to execute a rule', async function () {
+        RuleManager.Instance.setRule('Comprar 1 LTC/USDT siempre', {
             condition: {
                 type: 'CONSTANT',
                 value: true
             },
             action: [{
                 type: 'BUY_MARKET',
-                symbol: 'TDD/USDT',
+                symbol: 'LTC/USDT',
                 amount: {
                     type: 'CONSTANT',
-                    value: 12
+                    value: 1
                 }
             }]
         });
-        RuleManager.Instance.executeRules('TDD/USDT');
-        assert.deepEqual(Wallet.Instance.getBalance('TDD'), 12);
+        DataManager.Instance.insertData('LTCUSDT', 1, Math.floor(new Date().getTime() / 1000) - 1);
+        let balance = await getBalance('LTC');
+        await RuleManager.Instance.executeRules('LTCUSDT');
+        assert.deepEqual(await getBalance('LTC'), balance + 1);
     });
 
     it('shoul be able to execute a rule with a variable', function () {

@@ -1,22 +1,32 @@
 import { Router } from 'express';
 import WalletController from '../controllers/wallet';
+import { validateToken } from '../middlewares/validateToken';
 import { validateAmount } from '../middlewares/walletValidations';
+import { validateAdminRole } from '../middlewares/validateAdminRole';
 
 const walletRouter = () => {
     const router = Router();
     const walletController = WalletController();
     
-    router.get('/', walletController.getBalance);
+    router.get('/', [
+        validateToken
+    ], walletController.getBalance);
 
     router.post('/sell', [
-        validateAmount
+        validateAmount,
+        validateToken,
+        validateAdminRole
     ], walletController.sellAmount);
 
     router.post('/buy', [
-        validateAmount
+        validateAmount,
+        validateToken,
+        validateAdminRole
     ], walletController.buyAmount);
 
-    router.get('/value/:symbol', walletController.getValue);
+    router.get('/value/:symbol', [
+        validateToken
+    ], walletController.getValue);
 
     return router;
 }
