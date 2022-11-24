@@ -1,7 +1,8 @@
 import axios from "axios";
-import { AppDispatch } from "..";
+import { AppDispatch, RootState } from "..";
 import { baseURL } from "../../config";
 import { Coin } from "../../interfaces/interfaces";
+import { logout } from "./authAction";
 
 export type WalletAction = {
   type: "SELECT_COIN";
@@ -22,28 +23,59 @@ const fetchCoins = (coins: Coin[]): WalletAction => ({
   coins
 })
 
-export const getCoins = () => async (dispatch: AppDispatch) => {
+export const getCoins = () => async (dispatch: AppDispatch, getState: () => RootState) => {
+  const token = getState().auth.token;
+
   try {
     const requestURL: string = baseURL + "/api/wallet/"
-    const result = await axios.get(requestURL);
+    const result = await axios.get(requestURL, { headers: { Authorization: `Bearer ${token}` } });
     dispatch(fetchCoins(result.data));
-  } catch (e) { /* do nothing */ console.log(e)}
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      if (e.response?.status === 401) {
+        dispatch(logout());
+      } else {
+        throw e.response?.data.error;
+      }
+    }
+  }
 };
 
-export const buyCoin = (symbol: String, amount: number) => async (dispatch: AppDispatch) => {
+export const buyCoin = (symbol: String, amount: number) => async (dispatch: AppDispatch, getState: () => RootState) => {
+  const token = getState().auth.token;
+
   try {
     const requestURL: string = `${baseURL}/api/wallet/buy`;
     const requestCoin = { "symbol": symbol, "amount" : amount };
-    const result = await axios.post(requestURL, requestCoin);
+    const result = await axios.post(requestURL, requestCoin, { headers: { Authorization: `Bearer ${token}` } });
     dispatch(getCoins());
-  } catch (e) { /* do nothing */ console.log(e)}
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      if (e.response?.status === 401) {
+        dispatch(logout());
+      } else {
+        throw e.response?.data.error;
+      }
+    } else {
+      throw e;
+    }
+  }
 };
 
-export const sellCoin = (symbol: String, amount: number) => async (dispatch: AppDispatch) => {
+export const sellCoin = (symbol: String, amount: number) => async (dispatch: AppDispatch, getState: () => RootState) => {
+  const token = getState().auth.token;
   try {
     const requestURL: string = `${baseURL}/api/wallet/sell`;
     const requestCoin = { "symbol": symbol, "amount" : amount };
-    const result = await axios.post(requestURL,  requestCoin);
+    const result = await axios.post(requestURL,  requestCoin, { headers: { Authorization: `Bearer ${token}` } });
     dispatch(getCoins());
-  } catch (e) { /* do nothing */ console.log(e)}
+  } catch (e) {
+    if (axios.isAxiosError(e)) {
+      if (e.response?.status === 401) {
+        dispatch(logout());
+      } else {
+        throw e.response?.data.error;
+      }
+    }
+  }
 };

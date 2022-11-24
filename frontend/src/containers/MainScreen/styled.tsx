@@ -8,10 +8,22 @@ export const MainContainer = styled.div`
 
 export const NavContainer = styled.div`
   display: flex;
-  justify-content: space-around;
-  margin-left: 30px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+export const NavLinksContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const SectionContainer = styled.div`
   overflow: hidden;
+`;
+
+export const LogoutButton = styled.div`
+  padding: 0px 15px 0px 15px;
 `;

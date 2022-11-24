@@ -12,11 +12,15 @@ import { selectCoins } from "../../state/selectors/walletSelector";
 import { getCoins } from "../../state/actions/walletAction";
 import { MdAdd } from "react-icons/md";
 import { NewCoinModal } from "../../components/NewCoinModal";
+import { ErrorModal } from "../../components/ErrorModal";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 export const Wallet = () => {
 
   const [modalShow, setModalShow] = React.useState(false);
   const dispatch = useAppDispatch();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [showNewCoinModal, setShowNewCoinModal] = useState(false);
   const handleClick = (coin: Coin) => {
     setModalShow(true);
@@ -24,10 +28,19 @@ export const Wallet = () => {
   }
 
   const coins = useAppSelector(selectCoins);
-  console.log(coins);
+  const { role } = useAppSelector(state => state.auth);
   useEffect(() => {
-    dispatch(getCoins());
-    }, []);
+    const getWalletInfo = async () => {
+      setLoading(true);
+      try {
+        dispatch(getCoins());
+      } catch (error) {
+        setError(error as string);
+      }
+      setLoading(false);
+    }
+    getWalletInfo();
+  }, []);
 
   return (
     <MainContainer>
@@ -39,15 +52,21 @@ export const Wallet = () => {
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
+      <ErrorModal
+        show={error !== ""}
+        onHide={() => setError("")}
+        error={error}
+      />
+      <LoadingSpinner loading={loading} />
       <TableContainer>
         <table className="table table-striped table-dark">
           <thead className="header-container">
             <tr>
               <th scope="col" className="wallet-header">
-                Nombre
+                Name
               </th>
               <th scope="col" className="wallet-header">
-                Cotizacion
+                Price
               </th>
               <th scope="col" className="wallet-header">
                 Amount
@@ -60,11 +79,11 @@ export const Wallet = () => {
               return (
                 <tr>
                   <td className="wallet-cell">{coin.symbol}</td>
-                  <td className="wallet-cell">10000</td>
+                  <td className="wallet-cell">{coin.value}</td>
                   <td className="wallet-cell">{coin.amount}</td>
                   <td className="operate-column">
-                    <OperateButton onClick={() => handleClick(coin)}>
-                      Operar
+                    <OperateButton onClick={() => handleClick(coin)} disabled={role !== 'ADMIN'}>
+                      Operate
                     </OperateButton>
                   </td>
                 </tr>
@@ -73,11 +92,11 @@ export const Wallet = () => {
           </tbody>
         </table>
       </TableContainer>
-      
-        <NewCoinButton onClick={() => setShowNewCoinModal(true)}>
-          <MdAdd color="#fecf43" size={45}/>
-        </NewCoinButton>
-      
+        {role === 'ADMIN' && (
+          <NewCoinButton onClick={() => setShowNewCoinModal(true)}>
+            <MdAdd color="#fecf43" size={45}/>
+          </NewCoinButton>
+        )}
     </MainContainer>
   );
 };

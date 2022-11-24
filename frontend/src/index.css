@@ -27,7 +27,7 @@ code {
 
 .navbar-dark .nav-link{
   color: #fecf43;
-  font-size: 25px;
+  font-size: 22px;
   margin-left: 20px;
 }
 
@@ -39,7 +39,7 @@ code {
 .login-button {
   font-size: 18px;
   color: #fecf43;
-  width:150px;
+  width:100px;
 }
 
 .google-login-button{
@@ -95,7 +95,6 @@ code {
   color: #fecf43;
   border-color: #fecf43;
   justify-content: center;
-  
 }
 
 .modal-title{
@@ -120,3 +119,11 @@ code {
   font-size: 20px;
 
 }
+
+.BuyModalHeader{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+
