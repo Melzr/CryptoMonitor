@@ -19,10 +19,18 @@ export class Action {
                 VariableManager.Instance.setVariable(action.name, value);
                 break;
             case 'SELL_MARKET':
-                await sellAmount(action.symbol.replace('/', ''), Value.parseAsNumber(await Value.parse(action.amount)));
+                try {
+                    await sellAmount(action.symbol.replace('/', ''), Value.parseAsNumber(await Value.parse(action.amount)));
+                } catch (e) {
+                    console.log(e);
+                }
                 break;
             case 'BUY_MARKET':
-                await buyAmount(action.symbol.replace('/', ''), Value.parseAsNumber(await Value.parse(action.amount)));
+                try {
+                    await buyAmount(action.symbol.replace('/', ''), Value.parseAsNumber(await Value.parse(action.amount)));
+                } catch (e) {
+                    console.log(e);
+                }
                 break;
             default:
                 throw new Error('Invalid value type');

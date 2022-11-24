@@ -60,8 +60,8 @@ export const WalletModal = (props: Props) => {
       </Modal.Header>
       <Modal.Body>
         <TextContainer>
-          <BodyText>Cotizacion:</BodyText>
-          <BodyText color="white">2020</BodyText>
+          <BodyText>Price:</BodyText>
+          <BodyText color="white">{selectedCoin.value}</BodyText>
         </TextContainer>
         <TextContainer>
           <BodyText>Balance:</BodyText>
