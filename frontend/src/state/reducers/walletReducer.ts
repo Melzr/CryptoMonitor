@@ -11,7 +11,7 @@ const initialState = {
   coin:{
     symbol: "",
     amount: 0,
-    price: 0,
+    value: 0,
   },
   coins:[],
 }

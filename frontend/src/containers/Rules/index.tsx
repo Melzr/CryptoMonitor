@@ -20,33 +20,47 @@ import { Rule } from "../../interfaces/interfaces";
 import { RULES } from "./constants";
 import { ConfirmationModal } from "../../components/ConfirmationModal";
 import { EditRuleModal } from "../../components/EditModal";
+import { useAppDispatch, useAppSelector } from "../../state";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 import { RuleInfo } from "./RuleInfo";
-import { deleteRule, editRule, getRules } from "../../state/actions/rulesAction";
-import { useAppDispatch, useAppSelector } from "../../state";
+import { deleteRule, saveRule, getRules } from "../../state/actions/rulesAction";
 
 export const Rules = () => {
   const dispatch = useAppDispatch();
+  const { role } = useAppSelector(state => state.auth);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showNewRuleModal, setShowNewRuleModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleClick = (rule: Rule) => {
     dispatch(setSelectedRule(rule));
   };
 
-  
-
   let selectedRule = useAppSelector(selectCurrentRule);
   const rules = useAppSelector(selectRules);
 
   useEffect(() => {
-    dispatch(getRules());
-    }, []);
+    setLoading(true);
+    try {
+      dispatch(getRules());
+    } catch (error) {
+      setError(error as string);
+    }
+    setLoading(false);
+  }, []);
   
   const handleDeleteConfirm = () => {
     if (selectedRule) {
-      dispatch(deleteRule(selectedRule.name)); 
+      setLoading(true);
+      try {
+        dispatch(deleteRule(selectedRule.name)); 
+      } catch (error) {
+        setError(error as string);
+      }
+      setLoading(false);
     }
   }
 
@@ -70,15 +84,18 @@ export const Rules = () => {
         onHide={() => setShowNewRuleModal(false)}
         isEdit={false}
       />
+      <LoadingSpinner loading={loading} />
       <ListContainer>
-        <NewRuleContainer>
-          <NewRuleButton onClick={() => setShowNewRuleModal(true)}>
-            <NewRuleText>
-              New rule
-              <MdAdd color="black" size={30}/>
-            </NewRuleText>
-          </NewRuleButton>
-        </NewRuleContainer>
+        {role === "ADMIN" && (
+          <NewRuleContainer>
+            <NewRuleButton onClick={() => setShowNewRuleModal(true)}>
+              <NewRuleText>
+                New rule
+                <MdAdd color="black" size={30}/>
+              </NewRuleText>
+            </NewRuleButton>
+          </NewRuleContainer>
+        )}
         {rules.map((rule) => {
           return (
             <Option
@@ -86,14 +103,16 @@ export const Rules = () => {
               onClick={() => handleClick(rule)}
             >
               {rule.name}
-              <div>
-                <RuleButton onClick={() => setShowDeleteModal(true)}>
-                  <AiTwotoneDelete color="red" />
-                </RuleButton>
-                <RuleButton onClick={() => setShowEditModal(true)}>
-                  <HiPencil color="yellow" />
-                </RuleButton>
-              </div>
+              {role === "ADMIN" && (
+                <div>
+                  <RuleButton onClick={() => setShowDeleteModal(true)}>
+                    <AiTwotoneDelete color="red" />
+                  </RuleButton>
+                  <RuleButton onClick={() => setShowEditModal(true)}>
+                    <HiPencil color="yellow" />
+                  </RuleButton>
+                </div>
+              )}
             </Option>
           );
         })}

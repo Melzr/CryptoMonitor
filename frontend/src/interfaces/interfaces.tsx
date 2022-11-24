@@ -18,8 +18,12 @@ export interface Rule {
   
 export interface Coin {
     symbol: string;
-    price: number;
+    value: number;
     amount: number;
     }
 
+export interface Variable{
+  name: string;
+  value: number | string | boolean;
+}
   
