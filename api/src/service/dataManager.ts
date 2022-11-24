@@ -20,7 +20,7 @@ export class DataManager {
             console.info("Nuevo valor para " + symbol + ": " + price);
             ruleManager.executeRules(symbol);
         } else {
-            if (Math.abs(this.getLastValue(symbol)! - price) / price > 0.01) {
+            if (Math.abs(this.getLastValue(symbol)! - price) / price > 0.001) {
                 this.insertData(symbol, price, time);
                 console.info("Nuevo valor para " + symbol + ": " + price);
                 ruleManager.executeRules(symbol);

@@ -45,6 +45,7 @@ export class RuleManager {
             const condition = ruleObj.condition;
             const actions = ruleObj.action;
             if (await Value.parse(condition) === true) {
+                console.log("Regla " + nameRule + " ejecutando");
                 for(const action in actions) {
                     let a = actions[action];
                     if(a.type === 'SET_VARIABLE'){
