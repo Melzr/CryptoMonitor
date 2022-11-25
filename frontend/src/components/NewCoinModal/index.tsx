@@ -1,13 +1,8 @@
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { InformationContainer, WalletModalInput, BodyText } from "./styled";
-import Form from "react-bootstrap/Form";
-import { selectCurrentCoin } from "../../state/selectors/walletSelector";
 import { GenericButton } from "../Button";
-import { selectCurrentRule } from "../../state/selectors/rulesSelector";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../state";
-import { saveRule } from "../../state/actions/rulesAction";
+import { useState } from "react";
+import { useAppDispatch } from "../../state";
 import { buyCoin } from "../../state/actions/walletAction";
 import { ErrorModal } from "../ErrorModal";
 import { LoadingSpinner } from "../LoadingSpinner";

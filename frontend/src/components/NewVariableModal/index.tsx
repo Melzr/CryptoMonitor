@@ -1,8 +1,8 @@
 import Modal from "react-bootstrap/Modal";
 import { InformationContainer, WalletModalInput, BodyText } from "./styled";
 import { GenericButton } from "../Button";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../state";
+import { useState } from "react";
+import { useAppDispatch } from "../../state";
 import { ErrorModal } from "../ErrorModal";
 import { saveVariable } from "../../state/actions/variablesAction";
 import { LoadingSpinner } from "../LoadingSpinner";

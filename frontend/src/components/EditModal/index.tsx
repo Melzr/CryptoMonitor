@@ -1,5 +1,5 @@
 import Modal from "react-bootstrap/Modal";
-import { EditInput, Text } from "./styled";
+import { EditInput } from "./styled";
 import { GenericButton } from "../Button";
 import { selectCurrentRule } from "../../state/selectors/rulesSelector";
 import { useEffect, useState } from "react";

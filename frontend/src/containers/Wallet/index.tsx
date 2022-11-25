@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { MainContainer, SellButton, BuyButton, OperateButton, TableContainer, NewCoinButton } from "./styled";
-import Table from "react-bootstrap/Table";
-import { Button } from "react-bootstrap";
+import { MainContainer, OperateButton, TableContainer, NewCoinButton } from "./styled";
 import { WalletModal } from "../../components/OperateModal";
-import { Console } from "console";
-import { useDispatch } from "react-redux";
 import { setSelectedCoin } from "../../state/actions";
 import { Coin } from "../../interfaces/interfaces";
 import { useAppDispatch, useAppSelector } from "../../state";

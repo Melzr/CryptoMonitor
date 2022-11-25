@@ -1,7 +1,5 @@
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { BodyText, TextContainer, WalletModalInput } from "./styled";
-import Form from "react-bootstrap/Form";
 import { selectCurrentCoin } from "../../state/selectors/walletSelector";
 import { GenericButton } from "../Button";
 import { useAppDispatch, useAppSelector } from "../../state";

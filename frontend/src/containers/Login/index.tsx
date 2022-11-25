@@ -6,7 +6,6 @@ import {
   LoginContainer,
   MainContainer,
   LoginButtonContainer,
-  GoogleImage,
   GoogleButtonContainer,
   ButtonsContainer,
 } from "./styled";

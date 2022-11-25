@@ -1,4 +1,4 @@
-import { Rule, ValueType } from "../../../interfaces/interfaces";
+import { Rule } from "../../../interfaces/interfaces";
 import {
   ActionContainer,
   ConditionContainer,
@@ -7,7 +7,6 @@ import {
   RuleContainer,
   RuleSubtitle,
   RuleTitle,
-  Box,
   Container,
 } from "./styled";
 import { showAction, showValue } from "./utils";

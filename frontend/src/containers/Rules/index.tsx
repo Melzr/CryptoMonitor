@@ -15,16 +15,14 @@ import {
   NewRuleText,
   NewRuleButton,
 } from "./styled";
-import { useSelector } from "react-redux";
 import { Rule } from "../../interfaces/interfaces";
-import { RULES } from "./constants";
 import { ConfirmationModal } from "../../components/ConfirmationModal";
 import { EditRuleModal } from "../../components/EditModal";
 import { useAppDispatch, useAppSelector } from "../../state";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 import { RuleInfo } from "./RuleInfo";
-import { deleteRule, saveRule, getRules } from "../../state/actions/rulesAction";
+import { deleteRule, getRules } from "../../state/actions/rulesAction";
 
 export const Rules = () => {
   const dispatch = useAppDispatch();
@@ -99,7 +97,7 @@ export const Rules = () => {
         {rules.map((rule) => {
           return (
             <Option
-              isSelected={selectedRule ? selectedRule.name == rule.name : false}
+              isSelected={selectedRule ? selectedRule.name === rule.name : false}
               onClick={() => handleClick(rule)}
             >
               {rule.name}
